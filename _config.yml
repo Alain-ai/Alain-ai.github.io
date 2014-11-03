@@ -1,0 +1,11 @@
+root: /
+permalink: /:year-:month/:title/
+markdown: rdiscount
+pygments: true
+safe: true
+watch: true
+paginate: 20
+# description: "The personal site of Alain, MLer and programmer. Where I write about Java, Python, Machine Learning and my code on LeetCode."
+# url: http://alain-ai.me
+url: http://heai.info
+title: Java, Python, Machine Learning, LeetCode

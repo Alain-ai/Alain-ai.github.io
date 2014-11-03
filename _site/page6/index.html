@@ -1,0 +1,1874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Alain's Blog | Home - Java, Python, Machine Learning, LeetCode</title>
+    <meta name="keywords" content="Java, Python, Machine Learning, LeetCode">
+    <meta name="description" content="The personal site of Alain, MLer and programmer. I write about Java, Python, Machine Learning and my code on LeetCode Here.">
+    <meta name="author" content="Alain">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/static/favicon.ico" rel="shortcut icon">
+    <link href="/static/css/bootstrap.css" rel="stylesheet" type="text/css" media="all">
+    <link href="/static/css/font-awesome.css" rel="stylesheet" type="text/css" media="all">
+    <link href="/static/google-code-prettify/prettify.css" rel="stylesheet" type="text/css" media="all">
+    <link href="/static/css/application.css" rel="stylesheet" type="text/css" media="all">
+    <script src="/static/js/jquery.js" type="text/javascript"></script>
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+</head>
+<body>
+     <div class="page-container">
+     <div class="page-heading">
+         <div class="page-brand">
+             <h1><a href="/">Alain</a></h1>
+             <h2><a href="/tags.html">Java Intermediate, Python Beginner, Machine Learning Fan</a></h2>
+
+         </div>
+         <div class="page-navbar">
+             <div class="page-navbar-container">
+                 <ul class="page-nav">
+                     <li><a href="/">Home</a></li>
+                     <!-- <li><a href="/about.html">About</a></li> -->
+                     <li><a href="/categories.html">Categories</a></li>
+                     <li><a href="/tags.html">Tags</a></li>
+                     <li><a href="/archive.html">Archives</a></li>
+                 </ul>
+             </div>
+         </div>
+     </div>
+     <div class="page-article">
+         <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-54880616-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-10/markdown-leetcode-palindrome-partitioning/">LeetCode | Palindrome Partitioning in Python</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-10/markdown-leetcode-palindrome-partitioning/">10/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#leetcode-ref">leetcode</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Python-ref">Python</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+
+
+<pre>
+'''
+Question:
+    Given a string s, partition s such that every substring of the partition is a palindrome. Return all possible palindrome partitioning of s.
+
+Algorithm:
+    DFS
+    fist get the valid palindrome table for more efficient queries
+'''
+
+
+class Solution:
+    # @param s, a string
+    # @return a list of lists of string
+    def partition(self, s):
+        table = [[True if itr2 == itr else False for itr2 in xrange(len(s))] for itr in xrange(len(s))]
+        for i in xrange(len(s) - 2, -1, -1):
+            for j in xrange(i+1, len(s)):
+                if s[i] == s[j]:
+                    table[i][j] = table[i+1][j-1] if i+1 <= j-1 else True
+        res = []
+        self.partition_rec(s, 0, res, [], table)
+        return res
+
+    def partition_rec(self, s, start, res, tmp, table):
+        if start == len(s):
+            res.append(tmp[:])
+        for i in xrange(start, len(s)):
+            if table[start][i]:
+                tmp.append(s[start:i+1])
+                self.partition_rec(s, i+1, res, tmp, table)
+                tmp.pop()
+</pre>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-10/markdown-leetcode-palindrome-partitioning/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-10/markdown-leetcode-longest-valid-parentheses/">LeetCode | Longest Valid Parentheses in Python</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-10/markdown-leetcode-longest-valid-parentheses/">10/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#leetcode-ref">leetcode</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Python-ref">Python</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+
+
+<pre>
+'''
+Question:
+    Given a string containing just the characters "(" and ")", find the length of the longest valid (well-formed) parentheses substring. For "(()", the longest valid parentheses substring is "()", which has length = 2. Another example is ")()())", where the longest valid parentheses substring is "()()", which has length = 4.
+
+Algorithm:
+    one dimension DP
+    "rec" stores the length of the longest valid parentheses substring which ends up at index i
+'''
+
+
+class Solution:
+    # @param s, a string
+    # @return an integer
+    def longestValidParentheses(self, s):
+        # corner case: len(s) <= 1, not valid parenthesis pair
+        if len(s) <= 1:
+            return 0
+        rec = [0 for itr in xrange(len(s))]
+        for i in xrange(len(s)):
+            if s[i] == ')' and i > 0:
+                j = i - 1 - rec[i - 1]
+                if j >= 0 and s[j] == '(':
+                    rec[i] = 2 + rec[i-1]
+                    if j > 0:
+                        rec[i] += rec[j-1]
+        print rec
+        return max(rec)
+</pre>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-10/markdown-leetcode-longest-valid-parentheses/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-10/markdown-leetcode-longest-consecutive-sequence/">LeetCode | Longest Consecutive Sequence in Python</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-10/markdown-leetcode-longest-consecutive-sequence/">10/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#leetcode-ref">leetcode</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Python-ref">Python</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+
+
+<pre>
+'''
+Question:
+    Given an unsorted array of integers, find the length of the longest consecutive elements sequence. For example,
+    Given [100, 4, 200, 1, 3, 2],
+    The longest consecutive elements sequence is [1, 2, 3, 4]. Return its length: 4. Your algorithm should run in O(n) complexity.
+
+Algorithm:
+    1. put all elements into a set
+    2. scan all elements
+    3. for an element, search bidirectionally(incrementally and decrementally)
+    4. when finding a new valid element, delete it from the set
+
+Note:
+    it would be less efficient if don\'t delete element and just use to dict to store a True value as visited
+'''
+
+
+class Solution:
+    # @param num, a list of integer
+    # @return an integer
+    def longestConsecutive(self, num):
+        # visited = dict(zip(num, [True for itr in xrange(len(num))]))
+        visited = set(num)
+        res = 0
+        for i in num:
+            # if visited.get(i, False):
+            if i in visited:
+                visited.remove(i)
+                tmp_len, inc = 1, i + 1
+                # while visited.get(inc, False):
+                while inc in visited:
+                    # visited[inc] = True
+                    visited.remove(inc)
+                    tmp_len, inc = tmp_len + 1, inc + 1
+                inc = i - 1
+                # while visited.get(inc, False):
+                while inc in visited:
+                    # visited[inc] = True
+                    visited.remove(inc)
+                    tmp_len, inc = tmp_len + 1, inc - 1
+                res = max(res, tmp_len)
+        return res
+</pre>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-10/markdown-leetcode-longest-consecutive-sequence/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-10/markdown-leetcode-divide-two-integers/">LeetCode | Divide Two Integers in Python</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-10/markdown-leetcode-divide-two-integers/">10/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#leetcode-ref">leetcode</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Python-ref">Python</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+
+
+<pre>
+'''
+Question:
+    Divide two integers without using multiplication, division and mod operator.
+
+Algorithm:
+    1. obtain divisor times power of 2 list
+    2. accumulate the result by substracting the element of the list from the original dividend
+'''
+
+
+class Solution:
+    # @return an integer
+    def divide(self, dividend, divisor):
+        # corner cases: minus, dividend < divisor, divisor = +(-)1, dividend == 0
+        # more corner case: divisor == -(2**31)
+        if dividend == 0:
+            return 0
+        if divisor == 1:
+            return dividend
+        if divisor == -1:
+            return -dividend
+        if divisor == -(2**31):
+            return 0 if dividend != divisor else 1
+        if (dividend > 0 and divisor > 0) or (dividend < 0 and divisor < 0):
+            return self.apply_divide(abs(dividend), abs(divisor))
+        else:
+            return -self.apply_divide(abs(dividend), abs(divisor))
+
+    def apply_divide(self, dividend, divisor):
+        d = divisor
+        d_list = []
+        MAX = 2**31 - 1
+        while d <= MAX and d <= dividend:
+            d_list.append(d)
+            d *= 2
+        dvd = dividend
+        idx = len(d_list) - 1
+        res = 0
+        while dvd >= divisor:
+            if dvd >= d_list[idx]:
+                dvd -= d_list[idx]
+                res += 2 ** idx
+            else:
+                idx -= 1
+        return res
+</pre>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-10/markdown-leetcode-divide-two-integers/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-10/markdown-leetcode-candy/">LeetCode | Candy in Python</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-10/markdown-leetcode-candy/">10/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#leetcode-ref">leetcode</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Python-ref">Python</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+
+
+<pre>
+'''
+Question:
+    There are N children standing in a line. Each child is assigned a rating value. You are giving candies to these children subjected to the following requirements:
+    1. Each child must have at least one candy.
+    2. Children with a higher rating get more candies than their neighbors.
+    What is the minimum candies you must give?
+
+Algorithm:
+    two passes from two sides
+'''
+
+
+class Solution:
+    # @param ratings, a list of integer
+    # @return an integer
+    def candy(self, ratings):
+        res = [1]
+        for i in xrange(1, len(ratings)):
+            if ratings[i] > ratings[i-1]:
+                res.append(res[i-1] + 1)
+            else:
+                res.append(1)
+        for i in xrange(len(ratings)-2, -1, -1):
+            if ratings[i] > ratings[i+1] and res[i] <= res[i+1]:
+                res[i] = res[i+1] + 1
+        return sum(res)
+</pre>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-10/markdown-leetcode-candy/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-10/markdown-leetcode-binary-tree-preorder-traversal/">LeetCode | Binary Tree Preorder Traversal in Python</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-10/markdown-leetcode-binary-tree-preorder-traversal/">10/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#leetcode-ref">leetcode</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Python-ref">Python</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+
+
+<pre>
+'''
+Question:
+    Given a binary tree, return the preorder traversal of its nodes\' values.
+
+Algorithm:
+    Morris traversal
+'''
+
+
+class Solution:
+    # @param root, a tree node
+    # @return a list of integers
+    def preorderTraversal(self, root):
+        res = []
+        cur = root
+        while cur:
+            if not cur.left:
+                res.append(cur.val)
+                cur = cur.right
+            else:
+                tmp = cur.left
+                while tmp.right and tmp.right != cur:
+                    tmp = tmp.right
+                if not tmp.right:
+                    res.append(cur.val)
+                    tmp.right = cur
+                    cur = cur.left
+                else:
+                    tmp.right = None
+                    cur = cur.right
+        return res
+</pre>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-10/markdown-leetcode-binary-tree-preorder-traversal/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-10/markdown-leetcode-binary-tree-postorder-traversal/">LeetCode | Binary Tree Postorder Traversal in Python</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-10/markdown-leetcode-binary-tree-postorder-traversal/">10/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#leetcode-ref">leetcode</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Python-ref">Python</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+
+
+<pre>
+'''
+Question:
+    Given a binary tree, return the preorder traversal of its nodes\' values.
+
+Algorithm:
+    Morris traversal
+'''
+
+
+class Solution:
+    # @param root, a tree node
+    # @return a list of integers
+    def postorderTraversal(self, root):
+        dummy = TreeNode(0)
+        dummy.left = root
+        cur = dummy
+        res = []
+        while cur:
+            if not cur.left:
+                res.append(cur.val)
+                cur = cur.right
+            else:
+                tmp = cur.left
+                while tmp.right and tmp.right != cur:
+                    tmp = tmp.right
+                if not tmp.right:
+                    tmp.right = cur
+                    cur = cur.left
+                else:
+                    tmp.right = None
+                    res += self.trace_back(cur.left, tmp)
+                    cur = cur.right
+        return res
+
+    def trace_back(self, frm, to):
+        res = []
+        cur = frm
+        while cur is not to:
+            res.append(cur.val)
+            cur = cur.right
+        res.append(to.val)
+        res.reverse()
+        return res
+</pre>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-10/markdown-leetcode-binary-tree-postorder-traversal/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-10/markdown-leetcode-best-time-to-buy-and-sell-stock-iii/">LeetCode | Best Time to Buy and Sell Stock III in Python</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-10/markdown-leetcode-best-time-to-buy-and-sell-stock-iii/">10/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#leetcode-ref">leetcode</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Python-ref">Python</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+
+
+<pre>
+'''
+Question:
+    Say you have an array for which the ith element is the price of a given stock on day i. Design an algorithm to find the maximum profit. You may complete at most two transactions.
+
+Algorithm:
+    Greedy
+    find the max profit at the ith day when we indeed sell the stock by storing the minimal price(purchasing) at the days before the ith day
+    find the max profit at the ith day when we indeed buy the stok by storing the maximal price(selling) at the days behind the ith day
+'''
+
+
+class Solution:
+    # @param prices, a list of integer
+    # @return an integer
+    def maxProfit(self, prices):
+        if not prices:
+            return 0
+        min_arr = [0 for itr in xrange(len(prices))]
+        max_arr = min_arr[:]
+        min_cur, max_pro = prices[0], 0
+        for i in xrange(1, len(prices)):
+            max_pro = max(max_pro, prices[i] - min_cur)
+            min_arr[i] = max_pro
+            min_cur = min(min_cur, prices[i])
+        max_pro, max_cur = 0, prices[-1]
+        for i in xrange(len(prices)-2, -1, -1):
+            max_pro = max(max_pro, max_cur - prices[i])
+            max_arr[i] = max_pro
+            max_cur = max(max_cur, prices[i])
+        return max(map(lambda x, y: x+y, max_arr, min_arr))
+</pre>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-10/markdown-leetcode-best-time-to-buy-and-sell-stock-iii/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-10/markdown-leetcode-best-time-to-buy-and-sell-stock-ii/">LeetCode | Best Time to Buy and Sell Stock II in Python</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-10/markdown-leetcode-best-time-to-buy-and-sell-stock-ii/">10/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#leetcode-ref">leetcode</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Python-ref">Python</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+
+
+<pre>
+'''
+Question:
+    Say you have an array for which the ith element is the price of a given stock on day i. Design an algorithm to find the maximum profit. You may complete as many transactions as you like (ie, buy one and sell one share of the stock multiple times). However, you may not engage in multiple transactions at the same time (ie, you must sell the stock before you buy again).
+
+Algorithm:
+    Greedy
+    earn as much as possible between every two days
+'''
+
+
+class Solution:
+    # @param prices, a list of integer
+    # @return an integer
+    def maxProfit(self, prices):
+        if not prices or len(prices) == 1:
+            return 0
+        res = 0
+        for i in xrange(1, len(prices)):
+            res += prices[i] - prices[i-1] if prices[i] - prices[i-1] > 0 else 0
+        return res
+</pre>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-10/markdown-leetcode-best-time-to-buy-and-sell-stock-ii/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-10/markdown-leetcode-best-time-to-buy-and-sell-stock/">LeetCode | Best Time to Buy and Sell Stock in Python</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-10/markdown-leetcode-best-time-to-buy-and-sell-stock/">10/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#leetcode-ref">leetcode</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Python-ref">Python</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+
+
+<pre>
+'''
+Question:
+    Say you have an array for which the ith element is the price of a given stock on day i. If you were only permitted to complete at most one transaction (ie, buy one and sell one share of the stock), design an algorithm to find the maximum profit.
+
+Algorithm:
+    Greedy
+    find the max profit at the ith day when we indeed sell the stock by storing the minimal prices(purchasing) at the days before the ith day
+'''
+
+
+class Solution:
+    # @param prices, a list of integer
+    # @return an integer
+    def maxProfit(self, prices):
+        if not prices:
+            return 0
+        res, min_cur = 0, prices[0]
+        for i in xrange(1, len(prices)):
+            res = max(res, prices[i] - min_cur)
+            min_cur = min(min_cur, prices[i])
+        return res
+</pre>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-10/markdown-leetcode-best-time-to-buy-and-sell-stock/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-10/markdown-leetcode-balanced-binary-tree/">LeetCode | Balanced Binary Tree in Python</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-10/markdown-leetcode-balanced-binary-tree/">10/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#leetcode-ref">leetcode</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Python-ref">Python</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+
+
+<pre>
+'''
+Question:
+    Given a binary tree, determine if it is height-balanced. For this problem, a height-balanced binary tree is defined as a binary tree in which the depth of the two subtrees of every node never differ by more than 1.
+
+Algorithm:
+    recursion
+    follow the definition
+'''
+
+
+class Solution:
+    # @param root, a tree node
+    # @return a boolean
+    def isBalanced(self, root):
+        return self.isBalanced_rec(root)[0]
+
+    def isBalanced_rec(self, root):
+        if not root:
+            return True, 0
+        bal_left, height_left = self.isBalanced_rec(root.left)
+        bal_right, height_right = self.isBalanced_rec(root.right)
+        return bal_left and bal_right and abs(height_left - height_right) <= 1, max(height_left, height_right) + 1
+</pre>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-10/markdown-leetcode-balanced-binary-tree/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-10/markdown-leetcode-anagrams/">LeetCode | Anagrams in Python</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-10/markdown-leetcode-anagrams/">10/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#leetcode-ref">leetcode</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Python-ref">Python</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+
+
+<pre>
+'''
+Question:
+    Given an array of strings, return all groups of strings that are anagrams.
+
+Note:
+    All inputs will be in lower-case.
+
+Algorithm:
+    1. sort by taking the sorted string as key
+    2. group by the key
+'''
+
+
+class Solution:
+    # @param strs, a list of strings
+    # @return a list of strings
+    def anagrams(self, strs):
+        # sort based on sorted strings
+        rec = []
+        for s in strs:
+            rec.append([''.join(sorted(s)), s])
+        rec.sort()
+        res = []
+        for key, group in itertools.groupby(rec, operator.itemgetter(0)):
+            tmp = map(lambda x: x[1], group)
+            if len(tmp) > 1:
+                res += tmp
+        return res
+</pre>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-10/markdown-leetcode-anagrams/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-10/markdown-leetcode-3sum/">LeetCode | 3Sum in Python</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-10/markdown-leetcode-3sum/">10/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#leetcode-ref">leetcode</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Python-ref">Python</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+
+
+<pre>
+'''
+Question:
+    Given an array S of n integers, are there elements a, b, c in S such that a + b + c = 0? Find all unique triplets in the array which gives the sum of zero.
+
+Note:
+    1. Elements in a triplet (a,b,c) must be in non-descending order. (ie, a ≤ b ≤ c)
+    2. The solution set must not contain duplicate triplets.
+
+Algorithm:
+    fix one and approach from two sides to the middle
+'''
+
+
+class Solution:
+    # @return a list of lists of length 3, [[val1,val2,val3]]
+    def threeSum(self, num):
+        num.sort()
+        res = []
+        if len(num) < 3:
+            return res
+        for i in xrange(len(num)-2):
+            if i > 0 and num[i-1] == num[i]:
+                continue
+            target = -num[i]
+            j, k = i+1, len(num) - 1
+            while j < k:
+                if j > i+1 and num[j] == num[j-1]:
+                    j += 1
+                    continue
+                if num[j] + num[k] > target:
+                    k -= 1
+                elif num[j] + num[k] < target:
+                    j += 1
+                else:
+                    res.append([num[i], num[j], num[k]])
+                    j, k = j + 1, k - 1
+        return res
+</pre>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-10/markdown-leetcode-3sum/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-10/markdown-leetcode-spiral-matrix-ii/">LeetCode | Spiral Matrix II in Python</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-10/markdown-leetcode-spiral-matrix-ii/">10/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#leetcode-ref">leetcode</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Python-ref">Python</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+
+
+<pre>
+'''
+Question:
+    Given an integer n, generate a square matrix filled with elements from 1 to n^2 in spiral order.
+
+Algorithm:
+    set two row pointer and two column pointers, let them move forward to each other
+'''
+
+
+class Solution:
+    # @return a list of lists of integer
+    def generateMatrix(self, n):
+        r1, r2, c1, c2 = 0, n-1, 0, n-1
+        num = 1
+        res = [[0 for itr in xrange(n)] for itr2 in xrange(n)]
+        while r1 <= r2 and c1 <= c2:
+            for i in xrange(c1, c2+1):
+                res[r1][i] = num
+                num += 1
+            r1 += 1
+            if r1 > r2 or c1 > c2:
+                break
+            for i in xrange(r1, r2+1):
+                res[i][c2] = num
+                num += 1
+            c2 -= 1
+            if r1 > r2 or c1 > c2:
+                break
+            for i in xrange(c2, c1-1, -1):
+                res[r2][i] = num
+                num += 1
+            r2 -= 1
+            if r1 > r2 or c1 > c2:
+                break
+            for i in xrange(r2, r1-1, -1):
+                res[i][c1] = num
+                num += 1
+            c1 += 1
+            if r1 > r2 or c1 > c2:
+                break
+        return res
+</pre>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-10/markdown-leetcode-spiral-matrix-ii/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-10/markdown-leetcode-spiral-matrix/">LeetCode | Spiral Matrix in Python</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-10/markdown-leetcode-spiral-matrix/">10/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#leetcode-ref">leetcode</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Python-ref">Python</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+
+
+<pre>
+'''
+Question:
+    Given a matrix of m x n elements (m rows, n columns), return all elements of the matrix in spiral order.
+
+Algorithm:
+    set two row poniter and two column pointers, let them move forward to each other
+'''
+
+
+class Solution:
+    # @param matrix, a list of lists of integers
+    # @return a list of integers
+    def spiralOrder(self, matrix):
+        mat = matrix
+        res = []
+        if len(matrix) == 0:
+            return res
+        r, c = len(matrix), len(matrix[0])
+        c1, c2 = 0, c - 1
+        r1, r2 = 0, r - 1
+        while c1 <= c2 and r1 <= r2:
+            for i in xrange(c1, c2+1):
+                res.append(mat[r1][i])
+            r1 += 1
+            if c1 > c2 or r1 > r2:
+                break
+            for i in xrange(r1, r2+1):
+                res.append(mat[i][c2])
+            c2 -= 1
+            if c1 > c2 or r1 > r2:
+                break
+            for i in xrange(c2, c1-1, -1):
+                res.append(mat[r2][i])
+            r2 -= 1
+            if c1 > c2 or r1 > r2:
+                break
+            for i in xrange(r2, r1-1, -1):
+                res.append(mat[i][c1])
+            c1 += 1
+            if c1 > c2 or r1 > r2:
+                break
+        return res
+</pre>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-10/markdown-leetcode-spiral-matrix/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-10/markdown-leetcode-populating-next-right-pointers-in-each-node/">LeetCode | Populating Next Right Pointers in Each Node in Python</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-10/markdown-leetcode-populating-next-right-pointers-in-each-node/">10/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#leetcode-ref">leetcode</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Python-ref">Python</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+
+
+<pre>
+'''
+Question:
+    Given a binary tree
+
+    struct TreeLinkNode {
+      TreeLinkNode *left;
+      TreeLinkNode *right;
+      TreeLinkNode *next;
+    }
+
+    Populate each next pointer to point to its next right node. If there is no next right node, the next pointer should be set to NULL. Initially, all next pointers are set to NULL.
+
+    Note: You may only use constant extra space. You may assume that it is a perfect binary tree (ie, all leaves are at the same level, and every parent has two children). For example, Given the following perfect binary tree,
+
+         1
+       /  \
+      2    3
+     / \  / \
+    4  5  6  7
+
+    After calling your function, the tree should look like:
+
+         1 -> NULL
+       /  \
+      2 -> 3 -> NULL
+     / \  / \
+    4->5->6->7 -> NULL
+
+Algorithm:
+    BFS
+    link the head of queue with its successor
+'''
+
+
+class Solution:
+    # @param root, a tree node
+    # @return nothing
+    def connect(self, root):
+        if not root:
+            return None
+        q = collections.deque([root, None])
+        while q:
+            node = q.popleft()
+            if not node:
+                if not q:
+                    break
+                q.append(None)
+            else:
+                node.next = q[0]
+                if node.left:
+                    q.append(root.left)
+                if node.right:
+                    q.append(root.right)
+</pre>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-10/markdown-leetcode-populating-next-right-pointers-in-each-node/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-10/markdown-leetcode-minimum-path-sum/">LeetCode | Minimum Path Sum in Python</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-10/markdown-leetcode-minimum-path-sum/">10/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#leetcode-ref">leetcode</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Python-ref">Python</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+
+
+<pre>
+'''
+Question:
+    Given a m x n grid filled with non-negative numbers, find a path from top left to bottom right which minimizes the sum of all numbers along its path.
+
+Algorithm:
+    DP
+    f(i, j) = min(f(i-1, j), f(i, j-1)) + val(i, j)
+'''
+
+
+class Solution:
+    # @param grid, a list of lists of integers
+    # @return an integer
+    def minPathSum(self, grid):
+        if len(grid) == 0:
+            return 0
+        m, n = len(grid), len(grid[0])
+        DP = [[cell for cell in row] for row in grid]
+        for i in xrange(m):
+            for j in xrange(n):
+                if not i == j == 0:
+                    DP[i][j] = min((DP[i-1][j] if i > 0 else 1<<31), (DP[i][j-1] if j > 0 else 1<<31)) + grid[i][j]
+        return DP[m-1][n-1]
+</pre>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-10/markdown-leetcode-minimum-path-sum/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-10/markdown-leetcode-sum-root-to-leaf-numbers/">LeetCode | Sum Root to Leaf Numbers in Python</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-10/markdown-leetcode-sum-root-to-leaf-numbers/">10/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#leetcode-ref">leetcode</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Python-ref">Python</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+
+
+<pre>
+'''
+Question:
+    Given a binary tree containing digits from 0-9 only, each root-to-leaf path could represent a number. An example is the root-to-leaf path 1->2->3 which represents the number 123. Find the total sum of all root-to-leaf numbers. For example,
+
+    1
+   / \
+  2   3
+    The root-to-leaf path 1->2 represents the number 12. The root-to-leaf path 1->3 represents the number 13. Return the sum = 12 + 13 = 25.
+
+Algorithm:
+    "tmp" stores the value from the upper layers, times 10 and plus the value of the current node
+'''
+
+
+class Solution:
+    # @param root, a tree node
+    # @return an integer
+    def sumNumbers(self, root):
+        if not root:
+            return 0
+        res = [0]
+        self.sumNumbers_rec(root, 0, res)
+        return res[0]
+
+    def sumNumbers_rec(self, root, tmp, res):
+        tmp = tmp * 10 + root.val
+        if not root.left and not root.right:
+            res[0] += tmp
+            return
+        if root.left:
+            self.sumNumbers_rec(root.left, tmp, res)
+        if root.right:
+            self.sumNumbers_rec(root.right, tmp, res)
+</pre>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-10/markdown-leetcode-sum-root-to-leaf-numbers/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-10/markdown-leetcode-scramble-string/">LeetCode | Scramble String in Python</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-10/markdown-leetcode-scramble-string/">10/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#leetcode-ref">leetcode</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Python-ref">Python</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+
+
+<pre>
+'''
+Question:
+    Given a string s1, we may represent it as a binary tree by partitioning it to two non-empty substrings recursively. Below is one possible representation of s1 = "great":
+
+    great
+   /    \
+  gr    eat
+ / \    /  \
+g   r  e   at
+           / \
+          a   t
+    To scramble the string, we may choose any non-leaf node and swap its two children. For example, if we choose the node "gr" and swap its two children, it produces a scrambled string "rgeat".
+
+    rgeat
+   /    \
+  rg    eat
+ / \    /  \
+r   g  e   at
+           / \
+          a   t
+    We say that "rgeat" is a scrambled string of "great". Similarly, if we continue to swap the children of nodes "eat" and "at", it produces a scrambled string "rgtae".
+
+    rgtae
+   /    \
+  rg    tae
+ / \    /  \
+r   g  ta  e
+       / \
+      t   a
+    We say that "rgtae" is a scrambled string of "great". Given two strings s1 and s2 of the same length, determine if s2 is a scrambled string of s1.
+
+Algorithm:
+    to determine if s2 is a scrambled string of s1, we have to check split s1 into two parts at every possible position and do the same thing with s2 from two sides. And if there exists one splitting position to let the two parts of s1 and s2 match, we will get the result.
+'''
+
+
+class Solution:
+    # @return a boolean
+    def isScramble(self, s1, s2):
+        return self.is_scramble_rec(s1, s2, 0, len(s1)-1, 0, len(s2)-1)
+
+    def is_scramble_rec(self, s1, s2, stt1, end1, stt2, end2):
+        if end1 - stt1 != end2 - stt2:
+            return False
+        if s1[stt1:end1+1] == s2[stt2:end2+1]:
+            return True
+        cnt = [0 for i in xrange(26)]
+        for i in xrange(stt1, end1+1):
+            cnt[ord(s1[i]) - ord('a')] += 1
+        for i in xrange(stt2, end2+1):
+            cnt[ord(s2[i]) - ord('a')] -= 1
+        if any(cnt):
+            return False
+        for i in xrange(0, end1-stt1):
+            return (self.is_scramble_rec(s1, s2, stt1, stt1+i, stt2, stt2+i) and self.is_scramble_rec(s1, s2, stt1+i+1, end1, stt2+i+1, end2)) or (self.is_scramble_rec(s1, s2, stt1, stt1+i, end2-i, end2) and self.is_scramble_rec(s1, s2, stt1+i+1, end1, stt2, end1-(stt1+i+1)+stt2))
+        return False
+</pre>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-10/markdown-leetcode-scramble-string/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-10/markdown-leetcode-distinct-subsequences/">LeetCode | Distinct Subsequences in Python</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-10/markdown-leetcode-distinct-subsequences/">10/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#leetcode-ref">leetcode</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Python-ref">Python</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+
+
+<pre>
+'''
+Question:
+    Given a string S and a string T, count the number of distinct subsequences of T in S. A subsequence of a string is a new string which is formed from the original string by deleting some (can be none) of the characters without disturbing the relative positions of the remaining characters. (ie, "ACE" is a subsequence of "ABCDE" while "AEC" is not). Here is an example: S = "rabbbit", T = "rabbit". Return 3.
+
+Algorithm:
+    DP
+    DP[i][j] = DP[i][j-1] + DP[i-1][j-1], if T[i] == S[j]; because both T[0:i-1] <--> S[0:i-1] and T[0:i] <--> S[0:i-1] can contribute
+    DP[i][j] = DP[i][j-1], otherwise; because only T[0:i] <--> S[0:i-1] contributes
+'''
+
+
+class Solution:
+    # @return an integer
+    def numDistinct(self, S, T):
+        ls, lt = len(S), len(T)
+        DP = [[0 for itr2 in xrange(ls)] for itr in xrange(lt)]
+        DP[0] = [1 for itr in xrange(ls)]
+        for i in xrange(1, lt+1):
+            for j in xrange(i, ls+1):
+                if T[i] == S[j]:
+                    DP[i][j] = DP[i][j-1] + DP[i-1][j-1]
+                else:
+                    DP[i][j] = DP[i][j-1]
+        return DP[lt][ls]
+</pre>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-10/markdown-leetcode-distinct-subsequences/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+
+<div class="page-pagination">
+    <ul class="pagination">
+        <li><span>Navi:</span></li>
+    
+    
+    
+    
+            
+    
+        <li><a href="/">newest</a></li>
+    
+    
+        <li><a href="/page5">&larr;</a></li>
+    
+    
+    
+    
+    
+        
+        <li><a href="/">1</a></li>
+        
+    
+    
+    
+    
+        <li><a href="/page2">2</a></li>
+    
+    
+    
+    
+    
+        <li><a href="/page3">3</a></li>
+    
+    
+    
+    
+    
+        <li><a href="/page4">4</a></li>
+    
+    
+    
+    
+    
+        <li><a href="/page5">5</a></li>
+    
+    
+    
+    
+    
+        <li><a href="/page6" class="active">6</a></li>
+    
+    
+    
+    
+    
+        <li><a href="/page7">7</a></li>
+    
+    
+    
+    
+    
+        <li><a href="/page8">8</a></li>
+    
+    
+    
+    
+    
+        <li><a class="next" href="/page7">&rarr;</a></li>
+    
+    <!--  -->
+
+    <!--  -->
+    <li><a href="/page8">oldest</a></li>
+    <li><span>149</span></li>
+    </ul>
+</div>
+
+     </div>
+     <div class="page-footer">
+         <span>
+             Powered by <a href="https://github.com/mojombo/jekyll">Jekyll</a>
+             | Hosted by <a href="http://github.com">Github.com</a>
+             | <span class="page-generator-time">11/02/2014 </span>
+         </span>
+     </div>
+     </div>
+     <script src="/static/js/bootstrap.js" type="text/javascript"></script>
+     <script src="/static/google-code-prettify/prettify.js" type="text/javascript"></script>
+     <script type="text/javascript">
+        $(document).ready(function() {
+            $('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto');
+            prettyPrint();
+        });
+     </script>
+     <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-54880616-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</body>
+</html>

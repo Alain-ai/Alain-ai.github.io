@@ -1,0 +1,1859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Alain's Blog | Home - Java, Python, Machine Learning, LeetCode</title>
+    <meta name="keywords" content="Java, Python, Machine Learning, LeetCode">
+    <meta name="description" content="The personal site of Alain, MLer and programmer. I write about Java, Python, Machine Learning and my code on LeetCode Here.">
+    <meta name="author" content="Alain">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/static/favicon.ico" rel="shortcut icon">
+    <link href="/static/css/bootstrap.css" rel="stylesheet" type="text/css" media="all">
+    <link href="/static/css/font-awesome.css" rel="stylesheet" type="text/css" media="all">
+    <link href="/static/google-code-prettify/prettify.css" rel="stylesheet" type="text/css" media="all">
+    <link href="/static/css/application.css" rel="stylesheet" type="text/css" media="all">
+    <script src="/static/js/jquery.js" type="text/javascript"></script>
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+</head>
+<body>
+     <div class="page-container">
+     <div class="page-heading">
+         <div class="page-brand">
+             <h1><a href="/">Alain</a></h1>
+             <h2><a href="/tags.html">Java Intermediate, Python Beginner, Machine Learning Fan</a></h2>
+
+         </div>
+         <div class="page-navbar">
+             <div class="page-navbar-container">
+                 <ul class="page-nav">
+                     <li><a href="/">Home</a></li>
+                     <!-- <li><a href="/about.html">About</a></li> -->
+                     <li><a href="/categories.html">Categories</a></li>
+                     <li><a href="/tags.html">Tags</a></li>
+                     <li><a href="/archive.html">Archives</a></li>
+                 </ul>
+             </div>
+         </div>
+     </div>
+     <div class="page-article">
+         <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-54880616-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-10/markdown-leetcode-letter-combinations-of-a-phone-number/">LeetCode | Letter Combinations of a Phone Number in Python</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-10/markdown-leetcode-letter-combinations-of-a-phone-number/">10/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#leetcode-ref">leetcode</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Python-ref">Python</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+
+
+<pre>
+'''
+Question:
+    Given a digit string, return all possible letter combinations that the number could represent.
+
+Algorithm:
+    DFS
+'''
+
+
+class Solution:
+    # @return a list of strings, [s1, s2]
+    def letterCombinations(self, digits):
+        if len(digits) == 0:
+            return ['']
+        mapper = [' ', '', 'abc', 'def', 'ghi', 'jkl', 'mno', 'pqrs', 'tuv', 'wxyz']
+        digits = list(digits)
+        res = self.letterCombinations_rec(mapper, digits)
+        return map(lambda x: ''.join(x), res)
+
+    def letterCombinations_rec(self, mapper, digits):  # when it won't construct a valid element in the very last recursion, just return something in every step and construct based on what has been returned
+        res = []
+        if len(digits) == 1:
+            for s in mapper[int(digits[0])]:
+                res.append([s])
+        else:
+            tmp = self.letterCombinations_rec(mapper, digits[1:])
+            for r in tmp:
+                for s in mapper[int(digits[0])]:
+                    res.append([s] + r)
+        return res
+</pre>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-10/markdown-leetcode-letter-combinations-of-a-phone-number/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-10/markdown-leetcode-word-ladder/">LeetCode | Word Ladder in Python</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-10/markdown-leetcode-word-ladder/">10/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#leetcode-ref">leetcode</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Python-ref">Python</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+
+
+<pre>
+'''
+Question:
+    Given two words (start and end), and a dictionary, find the length of shortest transformation sequence from start to end, such that:
+
+    Only one letter can be changed at a time
+    Each intermediate word must exist in the dictionary
+
+Algorithm:
+    BFS
+    To change a char in a string, it is much faster to use s_new = s[:i] + x(s[i]) + s[i+1:] than use
+    1. arr = list(s)
+    2. arr[i] = x
+    3. s_new = "".join(arr)
+
+Note:
+    Return 0 if there is no such transformation sequence.
+    All words have the same length.
+    All words contain only lowercase alphabetic characters.
+'''
+
+
+class Solution:
+    # @param start, a string
+    # @param end, a string
+    # @param dict, a set of string
+    # @return an integer
+    def ladderLength(self, start, end, dict_input):
+        dict_input.add(end)
+        alphabeta = [chr(ord('a') + itr) for itr in xrange(26)]
+        q, level = collections.deque([start, None]), 0
+        while q:
+            node = q.popleft()
+            if not node:
+                if not q:
+                    break
+                level += 1
+                q.append(None)
+            else:
+                if node == end:
+                    return level+1
+                for i in xrange(len(node)):
+                    for a in alphabeta:
+                        if node[i] != a:
+                            word = node[:i] + a + node[i+1:]
+                            if word in dict_input:
+                                q.append(word)
+                                dict_input.remove(word)
+        return 0
+</pre>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-10/markdown-leetcode-word-ladder/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-10/markdown-leetcode-sqrtx/">LeetCode | Sqrt(x) in Python</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-10/markdown-leetcode-sqrtx/">10/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#leetcode-ref">leetcode</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Python-ref">Python</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+
+
+<pre>
+'''
+Question:
+    Implement int sqrt(int x). Compute and return the square root of x.
+
+Algorithm:
+    1. Newton\'s method
+        1. f(t) = t^2 - x and t* is the solution
+        2. first moment taylor expansion of f(t*) at current t
+        3. f(t*) = f(t - h)
+        4. x = f(t*) = f(t - h) = f(t) + f\'(t)(t-h-t) = f(t) - f\'(t)*h
+        5. h = (f(t) - x) / f\'(t)
+        6. h = (t^2 - x) / 2t
+        7. given at current guess t, we are able to get the best step h
+        8. then we take t - h as a better guess of t*
+    2. binary search
+        from 0 to x/2 + 1
+'''
+
+
+class Solution:
+    # @param x, an integer
+    # @return an integer
+    def sqrt(self, x):
+        if x == 0:
+            return 0
+        tp, t = 0., 1.
+        while str(t) != str(tp):
+            tp, t = t, (t**2. + x) / (2. * t)
+        return int(str(t)[:str(t).index('.')])
+
+    def sqrt1(self, x):
+        i, j = 0, x/2 + 1
+        while i <= j:
+            mid = (i+j) >> 1
+            s = mid * mid
+            if s == x:
+                return mid
+            elif s > x:
+                j = mid - 1
+            else:
+                i = mid + 1
+        return j
+</pre>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-10/markdown-leetcode-sqrtx/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-10/markdown-leetcode-reverse-integer/">LeetCode | Reverse Integer in Python</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-10/markdown-leetcode-reverse-integer/">10/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#leetcode-ref">leetcode</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Python-ref">Python</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+
+
+<pre>
+'''
+Question:
+    Reverse digits of an integer.
+
+Algorithm:
+    division and mod operations
+'''
+
+
+class Solution:
+    # @return an integer
+    def reverse(self, x):
+        if x == 0:
+            return 0
+        is_neg = False
+        if x < 0:
+            is_neg = True
+            x = abs(x)
+        res = 0
+        while x > 0:
+            res = res * 10 + x % 10
+            x /= 10
+        return -res if is_neg else res
+</pre>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-10/markdown-leetcode-reverse-integer/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-10/markdown-leetcode-recover-binary-search-tree/">LeetCode | Recover Binary Search Tree in Python</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-10/markdown-leetcode-recover-binary-search-tree/">10/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#leetcode-ref">leetcode</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Python-ref">Python</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+
+
+<pre>
+'''
+Question:
+    Two elements of a binary search tree (BST) are swapped by mistake. Recover the tree without changing its structure.
+
+Algorithm:
+    get two violations in two kinds of Inorder traversal(left goes first and right goes firsts)
+'''
+
+
+class Solution:
+    # @param root, a tree node
+    # @return a tree node
+
+    def recoverTree(self, root):
+        succ = []
+        self.get_left_wrong(root, [], succ)
+        l = succ[0]
+        succ = []
+        self.get_right_wrong(root, [], succ)
+        r = succ[0]
+        # print l, r
+        l.val, r.val = r.val, l.val
+        return root
+
+    def get_left_wrong(self, root, box, succ):
+        if succ:
+            return succ
+        if root.left:
+            self.get_left_wrong(root.left, box, succ)
+        box.append(root)
+        if len(box) > 2:
+            box.pop(0)
+        if len(box) == 2 and box[0].val > box[1].val:
+            succ.append(box[0])
+        if root.right:
+            self.get_left_wrong(root.right, box, succ)
+
+    def get_right_wrong(self, root, box, succ):
+        if succ:
+            return succ
+        if root.right:
+            self.get_right_wrong(root.right, box, succ)
+        box.append(root)
+        if len(box) > 2:
+            box.pop(0)
+        if len(box) == 2 and box[0].val < box[1].val:
+            succ.append(box[0])
+        if root.left:
+            self.get_right_wrong(root.left, box, succ)
+</pre>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-10/markdown-leetcode-recover-binary-search-tree/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-10/markdown-leetcode-merge-k-sorted-lists/">LeetCode | Merge k Sorted Lists in Python</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-10/markdown-leetcode-merge-k-sorted-lists/">10/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#leetcode-ref">leetcode</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Python-ref">Python</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+
+
+<pre>
+'''
+Question:
+    Merge k sorted linked lists and return it as one sorted list. Analyze and describe its complexity.
+
+Algorithm:
+    min-heap to store k heads of all lists
+'''
+
+
+class ListNode:
+    def __init__(self, x):
+        self.val = x
+        self.next = None
+
+    def __repr__(self):
+        return str(self.val)
+
+    def lt(self, other):
+        return self.val < other.val
+
+
+class Solution:
+    # @param a list of ListNode
+    # @return a ListNode
+    def mergeKLists(self, lists):
+        lists = filter(lambda x: x is not None, lists)
+        heads = map(lambda x: (x.val, x), lists)
+        heapq.heapify(heads)
+        p = dummy = ListNode(0)
+        while heads:
+            val, node = heapq.heappop(heads)
+            p.next, p = node, node
+            if node.next:
+                heapq.heappush(heads, (node.next.val, node.next))
+        return dummy.next
+</pre>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-10/markdown-leetcode-merge-k-sorted-lists/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-10/markdown-leetcode-maximum-depth-of-binary-tree/">LeetCode | Maximum Depth of Binary Tree in Python</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-10/markdown-leetcode-maximum-depth-of-binary-tree/">10/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#leetcode-ref">leetcode</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Python-ref">Python</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+
+
+<pre>
+'''
+Question:
+    Given a binary tree, find its maximum depth. The maximum depth is the number of nodes along the longest path from the root node down to the farthest leaf node.
+
+Algorithm:
+    Recursion
+'''
+
+
+class Solution:
+    # @param root, a tree node
+    # @return an integer
+    def maxDepth(self, root):
+        if not root:
+            return 0
+        return max(self.maxDepth(root.left), self.maxDepth(root.right)) + 1
+</pre>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-10/markdown-leetcode-maximum-depth-of-binary-tree/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-10/markdown-leetcode-lru-cache/">LeetCode | LRU Cache in Python</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-10/markdown-leetcode-lru-cache/">10/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#leetcode-ref">leetcode</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Python-ref">Python</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+
+
+<pre>
+'''
+Question:
+    Design and implement a data structure for Least Recently Used (LRU) cache. It should support the following operations: get and set.
+
+    get(key) - Get the value (will always be positive) of the key if the key exists in the cache, otherwise return -1.
+    set(key, value) - Set or insert the value if the key is not already present. When the cache reached its capacity, it should invalidate the least recently used item before inserting a new item.
+
+Algorithm:
+    doubly linkedlist + dict
+    setting dummy head and tail makes operations easier
+'''
+
+
+class Entry:
+    def __init__(self, key, val):
+        self.key = key
+        self.val = val
+        self.prev = None
+        self.next = None
+
+    def __repr__(self):
+        return str(self.val)
+
+
+class LRUCache:
+
+    # @param capacity, an integer
+    def __init__(self, capacity):
+        self.capacity = capacity
+        self.head = Entry(0, 0)
+        self.tail = Entry(0, 0)
+        self.head.next = self.tail
+        self.tail.prev = self.head
+        self.mapper = dict()
+        self.count = 0
+
+    # @return an integer
+    def get(self, key):
+        if key not in self.mapper:
+            return -1
+        else:
+            self.move_to_head(self.mapper[key])
+            return self.mapper[key].val
+
+    # @param key, an integer
+    # @param value, an integer
+    # @return nothing
+    def set(self, key, value):
+        if key not in self.mapper:
+            node = Entry(key, value)
+            self.mapper[key] = node
+            if self.count == self.capacity:
+                self.mapper.pop(self.tail.prev.key, None)
+                p = self.tail.prev
+                node.next = p.next
+                node.prev = p.prev
+                p.prev.next = node
+                self.tail.prev = node
+            else:
+                p = self.tail.prev
+                p.next = node
+                node.prev = p
+                self.tail.prev = node
+                node.next = self.tail
+                self.count += 1
+            self.move_to_head(self.tail.prev)
+        else:
+            node = self.mapper[key]
+            node.val = value
+            self.move_to_head(node)
+
+    def move_to_head(self, node):
+        if node.prev == self.head:
+            return
+        else:
+            p, n = node.prev, node.next
+            p.next = n
+            n.prev = p
+            hn = self.head.next
+            self.head.next = node
+            node.prev = self.head
+            node.next = hn
+            hn.prev = node
+</pre>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-10/markdown-leetcode-lru-cache/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-10/markdown-leetcode-copy-list-with-random-pointer/">LeetCode | Copy List with Random Pointer in Python</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-10/markdown-leetcode-copy-list-with-random-pointer/">10/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#leetcode-ref">leetcode</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Python-ref">Python</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+
+
+<pre>
+'''
+Question:
+    A linked list is given such that each node contains an additional random pointer which could point to any node in the list or null. Return a deep copy of the list.
+
+Algorithm:
+    a version without using extra space
+'''
+
+
+class Solution:
+    # @param head, a RandomListNode
+    # @return a RandomListNode
+    def copyRandomList(self, head):
+        p = head
+        while p:
+            p_new = RandomListNode(p.label)
+            p_new.next = p.next
+            p_new.random = p.random
+            p.next = p_new
+            p = p_new.next
+        p = head
+        while p and p.next:
+            if p.random:
+                p.next.random = p.next.random.next
+            p = p.next.next
+        p_new = dummy = RandomListNode(0)
+        p = head
+        while p and p.next:
+            tmp = p.next
+            p.next = tmp.next
+            p_new.next = tmp
+            p_new = p_new.next
+            p = tmp.next
+        return dummy.next
+</pre>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-10/markdown-leetcode-copy-list-with-random-pointer/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-10/markdown-leetcode-path-sum-ii/">LeetCode | Path Sum II in Python</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-10/markdown-leetcode-path-sum-ii/">10/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#leetcode-ref">leetcode</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Python-ref">Python</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+
+
+<pre>
+'''
+Question:
+    Given a binary tree and a sum, find all root-to-leaf paths where each path\'s sum equals the given sum.
+
+    For example:
+    Given the below binary tree and sum = 22,
+              5
+             / \
+            4   8
+           /   / \
+          11  13  4
+         /  \    / \
+        7    2  5   1
+    return
+    [
+       [5,4,11,2],
+       [5,8,4,5]
+    ]
+
+Algorithm:
+    Recursion
+'''
+
+
+class Solution:
+    # @param root, a tree node
+    # @param sum, an integer
+    # @return a list of lists of integers
+    def pathSum(self, root, sum):
+        res = []
+        self.pathSum_rec(root, sum, res, [])
+        return res
+
+    def pathSum_rec(self, root, sum, res, path):
+        if not root:
+            return False
+        if not root.left and not root.right:
+            if root.val == sum:
+                res.append(path + [root.val])
+        self.pathSum_rec(root.left, sum - root.val, res, path + [root.val])
+        self.pathSum_rec(root.right, sum - root.val, res, path + [root.val])</pre>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-10/markdown-leetcode-path-sum-ii/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-10/markdown-leetcode-path-sum/">LeetCode | Path Sum in Python</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-10/markdown-leetcode-path-sum/">10/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#leetcode-ref">leetcode</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Python-ref">Python</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+
+
+<pre>
+'''
+Question:
+    Given a binary tree and a sum, determine if the tree has a root-to-leaf path such that adding up all the values along the path equals the given sum.
+
+    For example:
+    Given the below binary tree and sum = 22,
+              5
+             / \
+            4   8
+           /   / \
+          11  13  4
+         /  \      \
+        7    2      1
+        return true, as there exist a root-to-leaf path 5->4->11->2 which sum is 22.
+
+Algorithm:
+    Recursion
+    check when it comes to a leaf node
+    return False if root == None
+'''
+
+
+class Solution:
+    # @param root, a tree node
+    # @param sum, an integer
+    # @return a boolean
+    def hasPathSum(self, root, sum):
+        if not root:
+            return False
+        if not root.left and not root.right:
+            return root.val == sum
+        return self.hasPathSum(root.left, sum - root.val) or self.hasPathSum(root.right, sum - root.val)
+</pre>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-10/markdown-leetcode-path-sum/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-10/markdown-leetcode-minimum-depth-of-binary-tree/">LeetCode | Minimum Depth of Binary Tree in Python</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-10/markdown-leetcode-minimum-depth-of-binary-tree/">10/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#leetcode-ref">leetcode</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Python-ref">Python</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+
+
+<pre>
+'''
+Question:
+    Given a binary tree, find its minimum depth. The minimum depth is the number of nodes along the shortest path from the root node down to the nearest leaf node.
+
+Algorithm:
+    Recursion
+    get min when it comes to a leaf node
+'''
+
+
+class Solution:
+    # @param root, a tree node
+    # @return an integer
+    def minDepth(self, root):
+        if not root:
+            return 0
+        res = [1 << 31]
+        self.minDepth_rec(self, root, 1, res)
+        return res[0]
+
+    def minDepth_rec(self, root, level, min_depth):
+        if not root:
+            return
+        if not root.left and not root.right:
+            min_depth[0] = min(min_depth[0], level)
+        self.minDepth_rec(root.left, level+1, min_depth)
+        self.minDepth_rec(root.right, level+1, min_depth)
+</pre>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-10/markdown-leetcode-minimum-depth-of-binary-tree/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-10/markdown-leetcode-sort-colors/">LeetCode | Sort Colors in Python</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-10/markdown-leetcode-sort-colors/">10/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#leetcode-ref">leetcode</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Python-ref">Python</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+
+
+<pre>
+'''
+Question:
+    Given an array with n objects colored red, white or blue, sort them so that objects of the same color are adjacent, with the colors in the order red, white and blue. Here, we will use the integers 0, 1, and 2 to represent the color red, white, and blue respectively
+
+Algorithm:
+    Partition
+'''
+
+
+class Solution:
+    # @param A a list of integers
+    # @return nothing, sort in place
+    def sortColors(self, A):
+        l, h, i = 0, len(A) - 1, 0
+        while i <= h:
+            if A[i] < 1:
+                A[l], A[i] = A[i], A[l]
+                l += 1
+                i += 1
+            elif A[i] > 1:
+                A[h], A[i] = A[i], A[h]
+                h -= 1
+            else:
+                i += 1
+</pre>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-10/markdown-leetcode-sort-colors/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-10/markdown-leetcode-single-number/">LeetCode | Single Number in Python</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-10/markdown-leetcode-single-number/">10/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#leetcode-ref">leetcode</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Python-ref">Python</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+
+
+<pre>
+'''
+Question:
+    Given an array of integers, every element appears twice except for one. Find that single one.
+
+Algorithm:
+    xor trick
+'''
+
+
+class Solution:
+    # @param A, a list of integer
+    # @return an integer
+    def singleNumber(self, A):
+        return reduce(lambda x, y: x^y, A)
+</pre>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-10/markdown-leetcode-single-number/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-10/markdown-leetcode-same-tree/">LeetCode | Same Tree in Python</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-10/markdown-leetcode-same-tree/">10/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#leetcode-ref">leetcode</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Python-ref">Python</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+
+
+<pre>
+'''
+Question:
+    Given two binary trees, write a function to check if they are equal or not. Two binary trees are considered equal if they are structurally identical and the nodes have the same value.
+
+Algorithm:
+    Recursion
+'''
+
+
+class Solution:
+    # @param p, a tree node
+    # @param q, a tree node
+    # @return a boolean
+    def isSameTree(self, p, q):
+        if p == q is None:
+            return True
+        elif p is None or q is None:
+            return False
+        elif p.val == q.val:
+            return self.isSameTree(p.left, q.left) and self.isSameTree(p.right, q.right)
+        else:
+            return False
+</pre>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-10/markdown-leetcode-same-tree/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-10/markdown-leetcode-pascals-triangle/">LeetCode | Binary Tree Maximum Path Sum in Python</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-10/markdown-leetcode-pascals-triangle/">10/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#leetcode-ref">leetcode</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Python-ref">Python</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+
+
+<pre>
+'''
+Question:
+    Given numRows, generate the first numRows of Pascal\'s triangle.
+
+Algorithm:
+    a number is equal to the sum of the two number on its shoulder if there exist
+'''
+
+
+class Solution:
+    # @return a list of lists of integers
+    def generate(self, numRows):
+        if numRows == 0:
+            return []
+        if numRows == 1:
+            return [1]
+        res = [1]
+        for i in xrange(1, numRows):
+            sub = [1]
+            for j in xrange(1, i):
+                sub.append(res[i-1][j-1] + res[i-1][j])
+            sub += [1]
+            res.append(sub)
+        return res
+</pre>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-10/markdown-leetcode-pascals-triangle/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-10/markdown-leetcode-merge-sorted-array/">LeetCode | Merge Sorted Array in Python</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-10/markdown-leetcode-merge-sorted-array/">10/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#leetcode-ref">leetcode</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Python-ref">Python</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+
+
+<pre>
+'''
+Question:
+    Given two sorted integer arrays A and B, merge B into A as one sorted array.
+
+Note:
+    You may assume that A has enough space (size that is greater or equal to m + n) to hold additional elements from B. The number of elements initialized in A and B are m and n respectively.
+
+Algorithm:
+    start from the end
+'''
+
+
+class Solution:
+    # @param A  a list of integers
+    # @param m  an integer, length of A
+    # @param B  a list of integers
+    # @param n  an integer, length of B
+    # @return nothing
+    def merge(self, A, m, B, n):
+        k = m + n - 1
+        i, j = m - 1, n - 1
+        while i >= 0 and j >= 0:
+            if A[i] > B[j]:
+                A[k] = A[i]
+                i -= 1
+            else:
+                A[k] = B[j]
+                j -= 1
+            k -= 1
+        while j >= 0:
+            A[k] = B[j]
+            j, k = j - 1, k - 1
+</pre>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-10/markdown-leetcode-merge-sorted-array/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-10/markdown-leetcode-max-points-on-a-line/">LeetCode | Max Points on a Line in Python</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-10/markdown-leetcode-max-points-on-a-line/">10/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#leetcode-ref">leetcode</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Python-ref">Python</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+
+
+<pre>
+'''
+Question:
+    Given n points on a 2D plane, find the maximum number of points that lie on the same straight line.
+
+Algorithm:
+    1. use ax + by + c = 0 to avoid numerical problems.
+    2. deal with coincidence of input points
+'''
+
+
+class Solution:
+    # @param points, a list of Points
+    # @return an integer
+    def maxPoints(self, points):
+        points = [(p.x, p.y) for p in points]
+        points_set = list(set(points))
+        cov = dict(zip(points_set, [0 for i in xrange(len(points_set))]))
+        for j in xrange(len(points)):
+            cov[points[j]] += 1
+        if len(points_set) <= 2:
+            return sum([cov[p] for p in points_set])
+        max_global, l, dedup = 0, len(points_set), set()
+        points = points_set
+        for i in xrange(l):
+            for j in xrange(i+1, l):
+                if (i, j) in dedup:
+                    continue
+                a, b = points[j][1] - points[i][1], points[j][0] - points[i][0]
+                c = points[i][1] * points[j][0] - points[j][1] * points[i][0]
+                rec = [i, j]
+                for k in xrange(j+1, l):
+                    if points[k][0] * a - points[k][1] * b + c == 0:
+                        rec.append(k)
+                max_local = sum([cov[points_set[itr]] for itr in rec])
+                for itr in xrange(len(rec)):
+                    for itr2 in xrange(itr+1, len(rec)):
+                        dedup.add((rec[itr], rec[itr2]))
+                max_global = max(max_global, max_local)
+        return max_global
+</pre>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-10/markdown-leetcode-max-points-on-a-line/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-10/markdown-leetcode-clone-graph/">LeetCode | Clone Graph in Python</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-10/markdown-leetcode-clone-graph/">10/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#leetcode-ref">leetcode</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Python-ref">Python</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+
+
+<pre>
+'''
+Question:
+    Clone an undirected graph. Each node in the graph contains a label and a list of its neighbors.
+
+Algorithm:
+    "cloneGraph_rec" get a node and return its cloned node and try to fill the cloned node's neighbors with other new cloned nodes
+'''
+
+
+class Solution:
+    # @param node, a undirected graph node
+    # @return a undirected graph node
+    def cloneGraph(self, node):
+        return self.cloneGraph_rec(node, {})
+
+    def cloneGraph_rec(self, node, visited):
+        if node in visited:
+            return visited[node]
+        node_new = UndirectedGraphNode(node.label)
+        node_new.neighbors = []
+        visited[node] = node_new
+        for n in node.neighbors:
+            n_new = self.cloneGraph_rec(n, visited)
+            node_new.neighbors.append(n_new)
+        return node_new
+</pre>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-10/markdown-leetcode-clone-graph/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-10/markdown-leetcode-climbing-stairs/">LeetCode | Climbing Stairs in Python</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-10/markdown-leetcode-climbing-stairs/">10/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#leetcode-ref">leetcode</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Python-ref">Python</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+
+
+<pre>
+'''
+Question:
+    You are climbing a stair case. It takes n steps to reach to the top. Each time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top?
+
+Algorithm:
+    DP
+'''
+
+
+class Solution:
+    # @param n, an integer
+    # @return an integer
+    def climbStairs(self, n):
+        if n <= 0:
+            return 0
+        DP = [1, 2]
+        if n <= 2:
+            return DP[n-1]
+        for i in xrange(2, n):
+            DP.append(DP[i-1] + DP[i-2])
+        return DP[-1]
+</pre>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-10/markdown-leetcode-climbing-stairs/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+
+<div class="page-pagination">
+    <ul class="pagination">
+        <li><span>Navi:</span></li>
+    
+    
+    
+            
+    
+    
+        <li><a href="/">newest</a></li>
+    
+    
+        <li><a href="/page2">&larr;</a></li>
+    
+    
+    
+    
+    
+        
+        <li><a href="/">1</a></li>
+        
+    
+    
+    
+    
+        <li><a href="/page2">2</a></li>
+    
+    
+    
+    
+    
+        <li><a href="/page3" class="active">3</a></li>
+    
+    
+    
+    
+    
+        <li><a href="/page4">4</a></li>
+    
+    
+    
+    
+    
+        <li><a href="/page5">5</a></li>
+    
+    
+    
+    
+    
+        <li><a href="/page6">6</a></li>
+    
+    
+    
+    
+    
+        <li><a href="/page7">7</a></li>
+    
+    
+    
+    
+    
+        <li><a href="/page8">8</a></li>
+    
+    
+    
+    
+    
+        <li><a class="next" href="/page4">&rarr;</a></li>
+    
+    <!--  -->
+
+    <!--  -->
+    <li><a href="/page8">oldest</a></li>
+    <li><span>149</span></li>
+    </ul>
+</div>
+
+     </div>
+     <div class="page-footer">
+         <span>
+             Powered by <a href="https://github.com/mojombo/jekyll">Jekyll</a>
+             | Hosted by <a href="http://github.com">Github.com</a>
+             | <span class="page-generator-time">11/02/2014 </span>
+         </span>
+     </div>
+     </div>
+     <script src="/static/js/bootstrap.js" type="text/javascript"></script>
+     <script src="/static/google-code-prettify/prettify.js" type="text/javascript"></script>
+     <script type="text/javascript">
+        $(document).ready(function() {
+            $('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto');
+            prettyPrint();
+        });
+     </script>
+     <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-54880616-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</body>
+</html>

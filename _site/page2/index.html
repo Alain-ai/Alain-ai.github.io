@@ -1,0 +1,1927 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Alain's Blog | Home - Java, Python, Machine Learning, LeetCode</title>
+    <meta name="keywords" content="Java, Python, Machine Learning, LeetCode">
+    <meta name="description" content="The personal site of Alain, MLer and programmer. I write about Java, Python, Machine Learning and my code on LeetCode Here.">
+    <meta name="author" content="Alain">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/static/favicon.ico" rel="shortcut icon">
+    <link href="/static/css/bootstrap.css" rel="stylesheet" type="text/css" media="all">
+    <link href="/static/css/font-awesome.css" rel="stylesheet" type="text/css" media="all">
+    <link href="/static/google-code-prettify/prettify.css" rel="stylesheet" type="text/css" media="all">
+    <link href="/static/css/application.css" rel="stylesheet" type="text/css" media="all">
+    <script src="/static/js/jquery.js" type="text/javascript"></script>
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+</head>
+<body>
+     <div class="page-container">
+     <div class="page-heading">
+         <div class="page-brand">
+             <h1><a href="/">Alain</a></h1>
+             <h2><a href="/tags.html">Java Intermediate, Python Beginner, Machine Learning Fan</a></h2>
+
+         </div>
+         <div class="page-navbar">
+             <div class="page-navbar-container">
+                 <ul class="page-nav">
+                     <li><a href="/">Home</a></li>
+                     <!-- <li><a href="/about.html">About</a></li> -->
+                     <li><a href="/categories.html">Categories</a></li>
+                     <li><a href="/tags.html">Tags</a></li>
+                     <li><a href="/archive.html">Archives</a></li>
+                 </ul>
+             </div>
+         </div>
+     </div>
+     <div class="page-article">
+         <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-54880616-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-10/markdown-java-stack-linkedlist-arraydeque/">Stack vs LinkedList vs ArrayDeque</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-10/markdown-java-stack-linkedlist-arraydeque/">10/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#language-ref">language</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Java-ref">Java</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+<p>This post extends discussion <a href="http://stackoverflow.com/questions/6129805/what-is-the-fastest-java-collection-with-the-basic-functionality-of-a-queue">here</a> and JavaDocs.</p>
+
+<h2>Stack</h2>
+
+<p>Java.util.Stack(short as "Stack") encodes a very basic concept in Computer Science - "stack". "Stack" actually extends Java.util.Vector instead of Java.util.ArrayList, which is unexpected.</p>
+
+<pre>
+public Stack<E> extends Vector<E>
+</pre>
+
+
+<p>As a consequence, "Stack" is synchronized, which causes hidden inefficiency when people use it without knowing the fact. But JavaDocs have already suggested a replacement of "Stack". From "Stack"'s' Javadocs:</p>
+
+<p><strong>A more complete and consistent set of LIFO stack operations is provided by the Deque interface and its implementations, which should be used in preference to this class. For example:</strong></p>
+
+<p><strong>Deque<Integer> stack = new ArrayDeque<Integer>();</strong></p>
+
+<h2>LinkedList</h2>
+
+<p>Java.util.LinkedList(short as "LinkedList") encodes doubly linked list concept by implements the interface of Deque. In addition to that, it also provides accessibility like an Random List(pesudo-random) by implementing the List interface.</p>
+
+<pre>
+public class LinkedList<E> extends AbstractSequentialList<E> implements List<E>, Deque<E>, Cloneable, java.io.Serializable
+</pre>
+
+
+<h2>ArrayDeque</h2>
+
+<p>Java.util.ArrayDeque(short as "ArrayDeque") is an implementation of the Deque interface based on Array.</p>
+
+<pre>
+public class ArrayDeque<E> extends AbstractCollection<E> implements Deque<E>, Cloneable, Serializable
+</pre>
+
+
+<p>Just as ArrayList, it has no capacity restrictions thanks to its resizable-array implementation. The underlying array grows as necessary to support usage. This class is likely to be faster than</p>
+
+<ol>
+<li><p>"Stack" when used as a stack. Because "Stack" is synchronized while "ArrayDeque" is not.</p></li>
+<li><p>"LinkedList" when used as a queue. Because ArrayDeque doesn’t have the overhead of node allocations that LinkedList.</p></li>
+<li><p>ArrayList-based Stack when used as a stack. Because "ArrayDeque" maintains a conceptually circular array who won't suffer form the overhead of shifting the array contents left on removal that ArrayList has.</p></li>
+</ol>
+
+
+<p><strong>Note that</strong> when we are planning to use an array-based List, such as ArrayList, Stack and even ArrayDeque, it would be best practice to estimate the maximal number of elements that might be inserted into. Then when initializing such an instance, we assign enough space in advance so as to avoid the overhead to extend its underlying array during insertions.</p>
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-10/markdown-java-stack-linkedlist-arraydeque/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-10/markdown-java-evaluate-reverse-polish-notation/">LeetCode | Evaluate Reverse Polish Notation in Java</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-10/markdown-java-evaluate-reverse-polish-notation/">10/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#leetcode-ref">leetcode</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Java-ref">Java</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+
+
+<pre>
+/*
+    1. 遇到数字压入栈中
+    2. 遇到运算符，弹出栈中头两个元素进行相应运算
+*/
+public class Evaluate_Reverse_Polish_Notation{
+
+    public int evalRPN(String[] tokens) {
+        if(tokens == null || tokens.length == 0) return 0;
+        Deque<Integer> deque = new ArrayDeque<Integer>();
+        HashSet<String> ops = new HashSet<String>();
+        Collections.addAll(ops, "+", "-", "*", "/");
+        for(String str : tokens){
+            if(!ops.contains(str)){
+                deque.push(Integer.valueOf(str));
+            }else{
+                int op1 = deque.pop();
+                int op2 = deque.pop();
+                if(str.equals("+")) {
+                    deque.push(op1+op2);
+                }else if(str.equals("-")){
+                    deque.push(op2 - op1);
+                }else if(str.equals("*")){
+                    deque.push(op1*op2);
+                }else{
+                    deque.push(op2 / op1);
+                }
+            }
+        }
+        return deque.pop();
+    }
+}
+</pre>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-10/markdown-java-evaluate-reverse-polish-notation/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-10/markdown-leetcode-valid-parentheses/">LeetCode | Valid Parentheses in Python</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-10/markdown-leetcode-valid-parentheses/">10/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#leetcode-ref">leetcode</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Python-ref">Python</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+
+
+<pre>
+'''
+Question:
+    Given a string containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid. The brackets must close in the correct order, "()" and "()[]{}" are all valid but "(]" and "([)]" are not.
+
+Algorithm:
+    stack
+'''
+
+
+class Solution:
+    # @return a boolean
+    def isValid(self, s):
+        stk = []
+        for e in s:
+            if e == '(' or e == '[' or e == '{':
+                stk.append(e)
+            else:
+                if not stk:
+                    return False
+                if e == ')' and stk.pop() != '(':
+                    return False
+                if e == ']' and stk.pop() != '[':
+                    return False
+                if e == '}' and stk.pop() != '{':
+                    return False
+        return len(stk) == 0
+</pre>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-10/markdown-leetcode-valid-parentheses/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-10/markdown-leetcode-reverse-nodes-in-k-group/">LeetCode | Reverse Nodes in k-Group in Python</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-10/markdown-leetcode-reverse-nodes-in-k-group/">10/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#leetcode-ref">leetcode</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Python-ref">Python</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+
+
+<pre>
+'''
+Question:
+    Given a linked list, reverse the nodes of a linked list k at a time and return its modified list. If the number of nodes is not a multiple of k then left-out nodes in the end should remain as it is. You may not alter the values in the nodes, only nodes itself may be changed. Only constant memory is allowed.
+
+Algorithm:
+    ...
+
+Note:
+    when reversing, set None ahead and behind
+'''
+
+
+class Solution:
+    # @param head, a ListNode
+    # @param k, an integer
+    # @return a ListNode
+    def reverseKGroup(self, head, k):
+        pp = p = dummy = ListNode(0)
+        cnt, p.next = 0, head
+        while p.next:
+            p, cnt = p.next, cnt + 1
+            if cnt % k == 0:
+                p_next, pp_next = p.next, pp.next
+                p.next = None
+                head_rev = self.reverse(pp_next)
+                pp.next = head_rev
+                pp_next.next = p_next
+                pp = p = pp_next
+        return dummy.next
+
+    def reverse(self, head):
+        if not head or not head.next:
+            return head
+        p = head.next
+        head.next = None
+        head_rev = self.reverse(p)
+        p.next = head
+        return head_rev
+</pre>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-10/markdown-leetcode-reverse-nodes-in-k-group/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-10/markdown-find-the-universal-sink-point/">Find the Universal Sink Vertex</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-10/markdown-find-the-universal-sink-point/">10/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#algorithm-ref">algorithm</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Other-ref">Other</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+<p>A universal sink vertex in a directed graph is the vertex to which all other vertices point and it points to none of others. So the question is how to find the universal sink vertex if there exists one or declare "No one" otherwise.</p>
+
+<p>Assume the graph has n vertices and m edges. A trivial answer is to detect n vertices one by one and for each one of them, we check if all others point to that and the out-degree of that one is 0. It's obvious that the time complexity is O(n<sup>2</sup>).</p>
+
+<p>Let's try to make some improvements by showing an observation. We take two arbitrary vertices out denoted as v and w and then how edges between them are distributed will lie in one of three following situations:</p>
+
+<ol>
+<li>v -->w and w --> v, neither of them will be the universal sink</li>
+<li>v --> w and not w --> v, v won't be</li>
+<li>w --> v and not v --> w, w won't be</li>
+<li>no edges between, neither of them will be</li>
+</ol>
+
+
+<p>Based on this observation, we can find why the aforementioned method is inefficient. Say if we have found that v won't be the universal sink by observing (2, v --> w and not w --> v). Then there is no need for v to take any further detections. In this way we can save some computations.</p>
+
+<p>Here is the pseudo-code.</p>
+
+<pre>
+head = list of n vertices
+table = adjacency look-up table
+p1 = head
+p2 = head.next
+while p1 and p2:
+    if p1 --> p2: # from table
+        delete p1
+    if p2 --> p1: # from table
+        delete p2
+    if not (p1 --> p2 or p2 --> p1): # from table
+        delete p1 and p2
+    reassign head
+    p1 = head
+    p2 = head.next
+</pre>
+
+
+<p>Finally there might be at most one vertex in the list. If there is one, check if that one is what we want. Otherwise, if the list is empty, it implies there does not exist a universal sink vertex.</p>
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-10/markdown-find-the-universal-sink-point/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-10/markdown-leetcode-wildcard-matching/">LeetCode | Wildcard Matching in Python</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-10/markdown-leetcode-wildcard-matching/">10/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#leetcode-ref">leetcode</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Python-ref">Python</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+
+
+<pre>
+'''
+Question:
+    Implement wildcard pattern matching with support for '?' and '*'. '?' Matches any single character. '*' Matches any sequence of characters (including the empty sequence). The matching should cover the entire input string (not partial).
+
+Algorithm:
+    single char match: s-->1 and p-->1
+    multiple char match: (s-->1 and p-->0) or (s-->0 and p-->2)
+
+Note:
+    Recursive version won\'t be accepted.
+'''
+
+
+class Solution:
+    # @param s, an input string
+    # @param p, a pattern string
+    # @return a boolean
+    def isMatch(self, s, p):
+        p = re.sub('\*+', '*', p)
+        return self.isMatch_itr(s, 0, p, 0)
+
+    def isMatch_rec(self, s, i, p, j):
+        if j == len(p):
+            return i == len(s)
+        if i < len(s):
+            if s[i] == p[j] or p[j] == '?':
+                return self.isMatch_rec(s, i+1, p, j+1)
+            elif p[j] == '*':
+                return self.isMatch_rec(s, i, p, j+1) or self.isMatch_rec(s, i+1, p, j)
+            else:
+                return False
+        else:
+            return j == len(p) - 1 and p[j] == '*'
+
+    def isMatch_itr(self, s, i, p, j):
+        stk = []
+        while i < len(s):
+            if j < len(p) and (s[i] == p[j] or p[j] == '?'):
+                i, j = i + 1, j + 1
+            elif j < len(p) and p[j] == '*':
+                stk.append((i, j))
+                j += 1
+            else:
+                if not stk:
+                    return False
+                else:
+                    i, j = stk.pop()
+                    i += 1
+        return i == len(s) and (j == len(p) or (j == len(p) - 1 and p[-1] == '*'))
+</pre>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-10/markdown-leetcode-wildcard-matching/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-10/markdown-leetcode-valid-number/">LeetCode | Valid Number in Python</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-10/markdown-leetcode-valid-number/">10/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#leetcode-ref">leetcode</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Python-ref">Python</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+
+
+<pre>
+'''
+Question:
+    Validate if a given string is numeric.
+
+Algorithm:
+    re match
+'''
+
+
+class Solution:
+    # @param s, a string
+    # @return a boolean
+    def isNumber(self, s):
+        return True if re.compile('^[-+]?(\d+\.?\d*|\.\d+)([Ee][+-]?\d+)?$').match(s.strip()) else False
+</pre>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-10/markdown-leetcode-valid-number/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-10/markdown-leetcode-surrounded-regions/">LeetCode | Surrounded Regions in Python</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-10/markdown-leetcode-surrounded-regions/">10/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#leetcode-ref">leetcode</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Python-ref">Python</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+
+
+<pre>
+'''
+Question:
+    Given a 2D board containing 'X' and 'O', capture all regions surrounded by 'X'. A region is captured by flipping all 'O's into 'X's in that surrounded region.
+
+Algorithm:
+    BFS
+
+Note:
+    1. do not need visited table
+    2. do not use a function to implement the statement "0 <= n_x < len(board) and 0 <= n_y < len(board[0]) and board[n_x][n_y] == 'O'"
+'''
+
+
+class Solution:
+    # @param board, a 2D array
+    # Capture all regions by modifying the input board in-place.
+    # Do not return any value.
+    def solve(self, board):
+        for i in xrange(len(board)):
+            for j in xrange(len(board[0])):
+                if (i == 0 or j == 0 or i == len(board)-1 or j == len(board[0])-1) and board[i][j] == 'O':
+                    self.solve_rec(board, i, j)
+        for i in xrange(len(board)):
+            for j in xrange(len(board[0])):
+                board[i][j] = 'O' if board[i][j] == '?' else 'X'
+
+    def solve_rec(self, board, i, j):
+        q = collections.deque([(i, j)])
+        while q:
+            x, y = q.popleft()
+            board[x][y] = '?'
+            n_x, n_y = x + 1, y
+            if 0 <= n_x < len(board) and 0 <= n_y < len(board[0]) and board[n_x][n_y] == 'O':
+                board[n_x][n_y] = '?'
+                q.append((n_x, n_y))
+            n_x, n_y = x - 1, y
+            if 0 <= n_x < len(board) and 0 <= n_y < len(board[0]) and board[n_x][n_y] == 'O':
+                board[n_x][n_y] = '?'
+                q.append((n_x, n_y))
+            n_x, n_y = x, y + 1
+            if 0 <= n_x < len(board) and 0 <= n_y < len(board[0]) and board[n_x][n_y] == 'O':
+                board[n_x][n_y] = '?'
+                q.append((n_x, n_y))
+            n_x, n_y = x, y - 1
+            if 0 <= n_x < len(board) and 0 <= n_y < len(board[0]) and board[n_x][n_y] == 'O':
+                board[n_x][n_y] = '?'
+                q.append((n_x, n_y))</pre>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-10/markdown-leetcode-surrounded-regions/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-10/markdown-leetcode-regular-expression-matching/">LeetCode | Regular Expression Matching in Python</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-10/markdown-leetcode-regular-expression-matching/">10/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#leetcode-ref">leetcode</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Python-ref">Python</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+
+
+<pre>
+'''
+Question:
+    Implement regular expression matching with support for '.' and '*'. '.' Matches any single character. '*' Matches zero or more of the preceding element. The matching should cover the entire input string (not partial).
+
+Algorithm:
+    single char match: s<--1 and p<--1
+    multiple char match: (s<--1 and p<--0) or (s<--0 and p<--2)
+'''
+
+
+class Solution:
+    # @return a boolean
+    def isMatch(self, s, p):
+        if not p:
+            return s == ''
+        if s and (p[-1] == '.' or p[-1] == s[-1]):
+            return self.isMatch(s[:-1], p[:-1])
+        elif p[-1] == '*':
+            if p[-2] == '.' or (s and p[-2] == s[-1]):
+                return self.isMatch(s, p[:-2]) or (len(s) > 0 and self.isMatch(s[:-1], p))
+            else:
+                return self.isMatch(s, p[:-2])
+        else:
+            return False
+</pre>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-10/markdown-leetcode-regular-expression-matching/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-10/markdown-java-vector-synchronizedlist/">Vector vs SynchronizedList</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-10/markdown-java-vector-synchronizedlist/">10/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#language-ref">language</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Java-ref">Java</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+<p>This post is aiming to extend the discussion <a href="http://stackoverflow.com/questions/14932034/in-java-vector-and-collections-synchronizedlist-are-all-synchronized-whats-ths">here</a>.
+In java, Vector and Collections.synchronizedList are all synchronized randomly-accessable lists. For historical reasons, this redundancy exists and is reserved until now. How are they different from each other?</p>
+
+<h2>Differences</h2>
+
+<p>The main difference between them is how the underlying data is stored.</p>
+
+<p>Collections.synchronizedList is a wrapper class around your current List implementation, which means you don't copy data to another data structure and you keep underlying structure intact.</p>
+
+<pre>
+public static <T> List<T> synchronizedList(List<T> list) {
+
+    return (list instanceof RandomAccess ? new SynchronizedRandomAccessList<T>(list) :
+        new SynchronizedList<T>(list));
+}
+
+static class SynchronizedList<E> extends SynchronizedCollection<E> implements List<E> {
+
+    private static final long serialVersionUID = -7754090372962971524L;
+
+    final List<E> list;
+
+    SynchronizedList(List<E> list) {
+        super(list);
+        this.list = list;
+    }
+
+    // other staff
+    ....
+
+}
+</pre>
+
+
+<p>The idea is implemented at line 15. Line 14 ensures the synchronization at the superclass SynchronizedCollection. We are able to use all APIs provided by List<E> Interface in a thread-safe way because synchronizedList implements List<E>.</p>
+
+<p>In case of a Vector, it actually holds the data internally. So if you want to take Vector as a wrapper of Arraylist to obtain synchronization, it would less efficient because it will make a copy of data. Another disadvantage of a Vector object is that it's an instance of RandomAccess Interface and therefore if a Vector object wraps a non-RandomAccess list like LinkedList, LinkedList will copy its values to an array by calling toArray method as shown at line 2. Thus the underlying LinkedList object loses its properties.</p>
+
+<pre>
+public Vector(Collection<? extends E> c) {
+
+    elementData = c.toArray();
+    elementCount = elementData.length;
+    // c.toArray might (incorrectly) not return Object[] (see 6260652)
+    if (elementData.getClass() != Object[].class)
+        elementData = Arrays.copyOf(elementData, elementCount, Object[].class);
+}
+</pre>
+
+
+<p>The wrapper synchronizedList is going to equip a list. It wraps not only a RandomAccess list like ArrayList but also a sequential-access list like LinkedList.</p>
+
+<pre>
+public static <T> List<T> synchronizedList(List<T> list) {
+
+    return (list instanceof RandomAccess ? new SynchronizedRandomAccessList<T>(list) :
+        new SynchronizedList<T>(list));
+}
+</pre>
+
+
+<p>In addition to SynchronizedList, java.util.Collections also offers more synchronized wrappers such as</p>
+
+<ol>
+<li>synchronizedCollection</li>
+<li>synchronizedMap</li>
+<li>synchronizedSet</li>
+<li>synchronizedSortedMap</li>
+<li>synchronizedSortedSet</li>
+</ol>
+
+
+<p>where synchronizedCollection is the superclass of all others.</p>
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-10/markdown-java-vector-synchronizedlist/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-10/markdown-leetcode-unique-binary-search-trees-ii/">LeetCode | Unique Binary Search Trees II in Python</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-10/markdown-leetcode-unique-binary-search-trees-ii/">10/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#leetcode-ref">leetcode</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Python-ref">Python</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+jax: ["input/TeX","output/HTML-CSS"],
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+extensions: ["tex2jax.js","MathMenu.js","MathZoom.js"],
+TeX: { equationNumbers: { autoNumber: "AMS" }, extensions: ["AMSmath.js", "AMSsymbols.js","noErrors.js","noUndefined.js"]}
+});
+</script>
+
+
+
+
+<script type="text/javascript"
+    src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML">
+</script>
+
+
+
+
+<pre>
+'''
+Question:
+    Given n, generate all structurally unique BST\'s (binary search trees) that store values 1...n.
+
+Algorithm:
+    recursion
+'''
+
+
+class Solution:
+    # @return a list of tree node
+    def generateTrees(self, n):
+        return self.generateTrees_rec(1, n)
+
+    def generateTrees_rec(self, s, e):
+        if s > e:
+            return [None]
+        res = []
+        for i in xrange(s, e+1):
+            left_arr, right_arr = self.generateTrees_rec(s, i-1), self.generateTrees_rec(i+1, e)
+            for left in left_arr:
+                for right in right_arr:
+                    root, root.left, root.right = TreeNode(i), left, right
+                    res.append(root)
+        return res
+</pre>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-10/markdown-leetcode-unique-binary-search-trees-ii/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-10/markdown-leetcode-reverse-words-in-a-string/">LeetCode | Reverse Words in a String in Python</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-10/markdown-leetcode-reverse-words-in-a-string/">10/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#leetcode-ref">leetcode</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Python-ref">Python</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+jax: ["input/TeX","output/HTML-CSS"],
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+extensions: ["tex2jax.js","MathMenu.js","MathZoom.js"],
+TeX: { equationNumbers: { autoNumber: "AMS" }, extensions: ["AMSmath.js", "AMSsymbols.js","noErrors.js","noUndefined.js"]}
+});
+</script>
+
+
+
+
+<script type="text/javascript"
+    src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML">
+</script>
+
+
+
+
+<pre>
+'''
+Question:
+    Given an input string, reverse the string word by word.
+
+Algorithm:
+    ...
+'''
+
+
+class Solution:
+    # @param s, a string
+    # @return a string
+    def reverseWords(self, s):
+        return ' '.join(re.compile('\s+').split(s.strip())[::-1])
+</pre>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-10/markdown-leetcode-reverse-words-in-a-string/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-10/markdown-leetcode-remove-element/">LeetCode | Remove Element in Python</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-10/markdown-leetcode-remove-element/">10/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#leetcode-ref">leetcode</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Python-ref">Python</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+jax: ["input/TeX","output/HTML-CSS"],
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+extensions: ["tex2jax.js","MathMenu.js","MathZoom.js"],
+TeX: { equationNumbers: { autoNumber: "AMS" }, extensions: ["AMSmath.js", "AMSsymbols.js","noErrors.js","noUndefined.js"]}
+});
+</script>
+
+
+
+
+<script type="text/javascript"
+    src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML">
+</script>
+
+
+
+
+<pre>
+'''
+Question:
+    Given an array and a value, remove all instances of that value in place and return the new length. The order of elements can be changed. It doesn\'t matter what you leave beyond the new length.
+
+Algorithm:
+    ...
+'''
+
+
+class Solution:
+    # @param    A       a list of integers
+    # @param    elem    an integer, value need to be removed
+    # @return an integer
+    def removeElement(self, A, elem):
+        idx = 0
+        for a in A:
+            if a != elem:
+                A[idx], idx = a, idx + 1
+        return idx
+</pre>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-10/markdown-leetcode-remove-element/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-10/markdown-leetcode-evaluate-reverse-polish-notation/">LeetCode | Evaluate Reverse Polish Notation in Python</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-10/markdown-leetcode-evaluate-reverse-polish-notation/">10/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#leetcode-ref">leetcode</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Python-ref">Python</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+jax: ["input/TeX","output/HTML-CSS"],
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+extensions: ["tex2jax.js","MathMenu.js","MathZoom.js"],
+TeX: { equationNumbers: { autoNumber: "AMS" }, extensions: ["AMSmath.js", "AMSsymbols.js","noErrors.js","noUndefined.js"]}
+});
+</script>
+
+
+
+
+<script type="text/javascript"
+    src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML">
+</script>
+
+
+
+
+<pre>
+'''
+Question:
+    Evaluate the value of an arithmetic expression in Reverse Polish Notation. Valid operators are +, -, *, /. Each operand may be an integer or another expression.
+
+Algorithm:
+    stack
+
+Note:
+    division of python is floor division
+'''
+
+
+class Solution:
+    # @param tokens, a list of string
+    # @return an integer
+    def evalRPN(self, tokens):
+        stk, ops = [], set(['+', '-', '*', '/'])
+        for t in tokens:
+            if t not in ops:
+                stk.append(int(t))
+            else:
+                op2, op1 = stk.pop(), stk.pop()
+                if t == '+':
+                    stk.append(op1 + op2)
+                elif t == '-':
+                    stk.append(op1 - op2)
+                elif t == '*':
+                    stk.append(op1 * op2)
+                elif t == '/':
+                    stk.append(int(float(op1) / float(op2)))
+        return stk[-1]
+</pre>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-10/markdown-leetcode-evaluate-reverse-polish-notation/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-10/markdown-java-vector-arraylist/">Vector vs ArrayList</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-10/markdown-java-vector-arraylist/">10/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#language-ref">language</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Java-ref">Java</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+<p>There are some similarities and differences between java.util.Vector and java.util.ArrayList. We're going to discuss them here. Despite of what has been discussed extensively <a href="http://stackoverflow.com/questions/2986296/what-are-the-differences-between-arraylist-and-vector">here</a>, we still want to talk about it more together with the java source code.</p>
+
+<h2>Similarities</h2>
+
+<ol>
+<li>They extend and implement the same superclass(AbstractList) and interfaces(List<E>, RandomAccess, Cloneable, java.io.Serializable)</li>
+</ol>
+
+
+<pre>
+public class Vector<E> extends AbstractList<E>, implements List<E>, RandomAccess, Cloneable, java.io.Serializable
+
+public class ArrayList<E> extends AbstractList<E>, implements List<E>, RandomAccess, Cloneable, java.io.Serializable
+</pre>
+
+
+<p>which guarantee that they have the same APIs.
+2. They are both resizable implementation of the List interface.</p>
+
+<h2>Differences</h2>
+
+<ol>
+<li>Thread-safe Or Not</li>
+<li>Data Growth Methods</li>
+</ol>
+
+
+<h3>Synchronization</h3>
+
+<p>Vectors are synchronized, ArrayLists are not.
+Methods which <a href="http://stackoverflow.com/questions/2986296/what-are-the-differences-between-arraylist-and-vector">modifies the list either structurally or simply modifies an element</a> will be synchronized. In Vectors, all methods has been synchronized. While in Arraylist, none of methods are like that.</p>
+
+<h3>Data Growth</h3>
+
+<p>Both the ArrayList and Vector will expand their underlying arrays internally when necessary. A Vector doubles the size of its array, while the ArrayList increases its array size by half.</p>
+
+<pre>
+// Vector
+private void ensureCapacityHelper(int minCapacity) {
+    int oldCapacity = elementData.length;
+    if (minCapacity > oldCapacity) {
+        Object[] oldData = elementData;
+        int newCapacity = (capacityIncrement > 0) ?
+            (oldCapacity + capacityIncrement) : (oldCapacity * 2);
+        if (newCapacity < minCapacity) {
+            newCapacity = minCapacity;
+        }
+        elementData = Arrays.copyOf(elementData, newCapacity);
+    }
+}
+
+// ArrayList
+public void ensureCapacity(int minCapacity) {
+    modCount++;
+    int oldCapacity = elementData.length;
+    if (minCapacity > oldCapacity) {
+        Object oldData[] = elementData;
+        int newCapacity = (oldCapacity * 3)/2 + 1;
+        if (newCapacity < minCapacity)
+            newCapacity = minCapacity;
+        // minCapacity is usually close to size, so this is a win:
+        elementData = Arrays.copyOf(elementData, newCapacity);
+    }
+}
+</pre>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-10/markdown-java-vector-arraylist/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-10/markdown-max-min-hashmap/">Max-Min HashMap</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-10/markdown-max-min-hashmap/">10/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#algorithm-ref">algorithm</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Java-ref">Java</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+<p>Let's implement a generic class MaxMinHashMap which extends from HashMap and additionally has getMinValue and getMaxValue method.</p>
+
+<p>To accomplish this, we have to consider the following things:</p>
+
+<ol>
+<li>What kind of type can be passed as key and value?</li>
+<li>All values should be compared in order to get max and min.</li>
+<li>How can we get max or min?</li>
+</ol>
+
+
+<p>There are two ways to think about (3). One is to compute one of them by iterating over all values stored in the object; the other one is to maintain max and min at running time and change them if necessary.</p>
+
+<p>Let's try to implement it in a simple way.</p>
+
+<pre>
+public class MinMaxHashMap< K, V extends Comparable< V > > extends HashMap< K, V >{
+
+    public V getMax(){
+        Collection< V > vs = this.values();
+        if (vs.size() == 0) {
+            return null;
+        }else {
+            Iterator< V > itr = vs.iterator();
+            V max = itr.next();
+            while(itr.hasNext()){
+                V next = itr.next();
+                max = max.compareTo(next) > 0 ? max : next;
+            }
+            return max;
+        }
+    }
+
+    public V getMin(){
+        Collection< V > vs = this.values();
+        if (vs.size() == 0) {
+            return null;
+        }else {
+            Iterator< V > itr = vs.iterator();
+            V min = itr.next();
+            while(itr.hasNext()){
+                V next = itr.next();
+                min = min.compareTo(next) < 0 ? min : next;
+            }
+            return min;
+        }
+    }
+}
+</pre>
+
+
+<p>Note that</p>
+
+<ol>
+<li>Values that might be passed in should implements Comparable interface and this is guaranteed by "V extends Comparable&lt; V > ".</li>
+<li>Values are stored in a collection and the only way to access is iterator.</li>
+</ol>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-10/markdown-max-min-hashmap/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-10/markdown-leetcode-search-in-rotated-sorted-array-ii/">LeetCode | Search in Rotated Sorted Array II in Python</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-10/markdown-leetcode-search-in-rotated-sorted-array-ii/">10/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#leetcode-ref">leetcode</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Python-ref">Python</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+
+
+<pre>
+'''
+Question:
+    Suppose a sorted array is rotated at some pivot unknown to you beforehand.
+    (i.e., 0 1 2 4 5 6 7 might become 4 5 6 7 0 1 2). You are given a target value to search. What if duplicates are allowed? Would this affect the run-time complexity? How and why? Write a function to determine if a given target is in the array.
+
+Algorithm:
+    binary search
+    1. A[mid] == A[i], -->
+    2. A[i] <= A[mid] < target, -->
+    3. target <= A[j] and not target < A[mid] <= A[j], -->
+    4. else <--
+'''
+
+
+class Solution:
+    # @param A a list of integers
+    # @param target an integer
+    # @return a boolean
+    def search(self, A, target):
+        i, j = 0, len(A) - 1
+        while i <= j:
+            mid = (i + j) >> 1
+            if A[mid] == target:
+                return True
+            if A[mid] == A[i]:
+                i += 1
+                continue
+            if A[i] < A[mid] < target or (target <= A[j] and not target < A[mid] <= A[j]):
+                i += 1
+            else:
+                j -= 1
+        return False
+</pre>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-10/markdown-leetcode-search-in-rotated-sorted-array-ii/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-10/markdown-leetcode-search-in-rotated-sorted-array/">LeetCode | Search in Rotated Sorted Array in Python</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-10/markdown-leetcode-search-in-rotated-sorted-array/">10/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#leetcode-ref">leetcode</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Python-ref">Python</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+
+
+<pre>
+'''
+Question:
+    Suppose a sorted array is rotated at some pivot unknown to you beforehand.
+    (i.e., 0 1 2 4 5 6 7 might become 4 5 6 7 0 1 2). You are given a target value to search. If found in the array return its index, otherwise return -1. You may assume no duplicate exists in the array.
+
+Algorithm:
+    binary search
+    1. A[i] <= A[mid] < target, -->
+    2. target <= A[j] and not target < A[mid] <= A[j], -->
+    3. else <--
+'''
+
+
+class Solution:
+    # @param A, a list of integers
+    # @param target, an integer to be searched
+    # @return an integer
+    def search(self, A, target):
+        i, j = 0, len(A) - 1
+        while i <= j:
+            mid = (i + j) >> 1
+            if A[mid] == target:
+                return mid
+            elif A[i] <= A[mid] < target or (target <= A[j] and not target < A[mid] <= A[j]):
+                i += 1
+            else:
+                j -= 1
+            # if A[mid] >= A[i]:
+            #     if A[i] <= target < A[mid]:
+            #         j -= 1
+            #     else:
+            #         i += 1
+            # else:
+            #     if A[mid] < target <= A[j]:
+            #         i += 1
+            #     else:
+            #         j -= 1
+        return -1
+</pre>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-10/markdown-leetcode-search-in-rotated-sorted-array/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-10/markdown-leetcode-maximum-product-subarray/">LeetCode | Maximum Product Subarray in Python</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-10/markdown-leetcode-maximum-product-subarray/">10/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#leetcode-ref">leetcode</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Python-ref">Python</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+
+
+<pre>
+'''
+Question:
+    Find the contiguous subarray within an array (containing at least one number) which has the largest product.
+
+Algorithm:
+    two tables(DP_max, DP_min) to store the max and min at currenet index i by compareing three values(A[i], A[i] * DP_max[-1], A[i] * DP_min[-1]) respectively
+'''
+
+
+class Solution:
+    # @param A, a list of integers
+    # @return an integer
+    def maxProduct(self, A):
+        ps, ns = [A[0]], [A[0]]
+        for i in xrange(1, len(A)):
+            tp, tn = ps[-1], ns[-1]
+            ps.append(max(A[i], A[i] * tp, A[i] * tn))
+            ns.append(min(A[i], A[i] * tn, A[i] * tp))
+        return max(ps)
+</pre>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-10/markdown-leetcode-maximum-product-subarray/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-10/markdown-leetcode-longest-substring-without-repeating-characters/">LeetCode | Longest Substring Without Repeating Characters in Python</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-10/markdown-leetcode-longest-substring-without-repeating-characters/">10/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#leetcode-ref">leetcode</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Python-ref">Python</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+
+
+<pre>
+'''
+Question:
+    Given a string, find the length of the longest substring without repeating characters. For example, the longest substring without repeating letters for "abcabcbb" is "abc", which the length is 3. For "bbbbb" the longest substring is "b", with the length of 1.
+
+Algorithm:
+    1. store the index where a char shows up last time
+    2. if there exists a repetition between "start" and current index i, "start" will be assigned to be the next one of the index where the repetition occurs
+'''
+
+
+class Solution:
+    # @return an integer
+    def lengthOfLongestSubstring(self, s):
+        if not s:
+            return 0
+        flag = [-1 for i in xrange(256)]
+        flag[ord(s[0])] = start = 0
+        max_len = 1
+        for i in xrange(1, len(s)):
+            if flag[ord(s[i])] >= start:
+                start = flag[ord(s[i])] + 1
+            flag[ord(s[i])] = i
+            max_len = max(max_len, i - start + 1)
+        return max_len
+</pre>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-10/markdown-leetcode-longest-substring-without-repeating-characters/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+
+<div class="page-pagination">
+    <ul class="pagination">
+        <li><span>Navi:</span></li>
+    
+    
+    
+            
+    
+    
+        <li><a href="/">newest</a></li>
+    
+    
+        <li><a href="/">&larr;</a></li>
+    
+    
+    
+    
+    
+        
+        <li><a href="/">1</a></li>
+        
+    
+    
+    
+    
+        <li><a href="/page2" class="active">2</a></li>
+    
+    
+    
+    
+    
+        <li><a href="/page3">3</a></li>
+    
+    
+    
+    
+    
+        <li><a href="/page4">4</a></li>
+    
+    
+    
+    
+    
+        <li><a href="/page5">5</a></li>
+    
+    
+    
+    
+    
+        <li><a href="/page6">6</a></li>
+    
+    
+    
+    
+    
+        <li><a href="/page7">7</a></li>
+    
+    
+    
+    
+        <li><a class="disabled">...</a></li>
+    
+    
+        <li><a class="next" href="/page3">&rarr;</a></li>
+    
+    <!--  -->
+
+    <!--  -->
+    <li><a href="/page8">oldest</a></li>
+    <li><span>149</span></li>
+    </ul>
+</div>
+
+     </div>
+     <div class="page-footer">
+         <span>
+             Powered by <a href="https://github.com/mojombo/jekyll">Jekyll</a>
+             | Hosted by <a href="http://github.com">Github.com</a>
+             | <span class="page-generator-time">11/02/2014 </span>
+         </span>
+     </div>
+     </div>
+     <script src="/static/js/bootstrap.js" type="text/javascript"></script>
+     <script src="/static/google-code-prettify/prettify.js" type="text/javascript"></script>
+     <script type="text/javascript">
+        $(document).ready(function() {
+            $('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto');
+            prettyPrint();
+        });
+     </script>
+     <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-54880616-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,2070 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Alain's Blog | Home - Java, Python, Machine Learning, LeetCode</title>
+    <meta name="keywords" content="Java, Python, Machine Learning, LeetCode">
+    <meta name="description" content="The personal site of Alain, MLer and programmer. I write about Java, Python, Machine Learning and my code on LeetCode Here.">
+    <meta name="author" content="Alain">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/static/favicon.ico" rel="shortcut icon">
+    <link href="/static/css/bootstrap.css" rel="stylesheet" type="text/css" media="all">
+    <link href="/static/css/font-awesome.css" rel="stylesheet" type="text/css" media="all">
+    <link href="/static/google-code-prettify/prettify.css" rel="stylesheet" type="text/css" media="all">
+    <link href="/static/css/application.css" rel="stylesheet" type="text/css" media="all">
+    <script src="/static/js/jquery.js" type="text/javascript"></script>
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+</head>
+<body>
+     <div class="page-container">
+     <div class="page-heading">
+         <div class="page-brand">
+             <h1><a href="/">Alain</a></h1>
+             <h2><a href="/tags.html">Java Intermediate, Python Beginner, Machine Learning Fan</a></h2>
+
+         </div>
+         <div class="page-navbar">
+             <div class="page-navbar-container">
+                 <ul class="page-nav">
+                     <li><a href="/">Home</a></li>
+                     <!-- <li><a href="/about.html">About</a></li> -->
+                     <li><a href="/categories.html">Categories</a></li>
+                     <li><a href="/tags.html">Tags</a></li>
+                     <li><a href="/archive.html">Archives</a></li>
+                 </ul>
+             </div>
+         </div>
+     </div>
+     <div class="page-article">
+         <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-54880616-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-11/markdown-find_path-at-binary-tree/">Find Path at Binary Tree</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-11/markdown-find_path-at-binary-tree/">11/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#algorithm-ref">algorithm</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Python-ref">Python</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+<p>Given a target node, we would like to find a path to it.</p>
+
+<pre>
+def find_path(root, target, res):
+    if not root:
+        return False
+    if root == target:
+        res.append(root)
+        return True
+    res.append(root)
+    found = find_path(root.left, target, res)
+    if not found:
+        found = find_path(root.right, target, res)
+    if not found:
+        res.pop()
+        return False
+    return True
+
+def find_path(root, target, res, path):
+    if not root:
+        return
+    if root == target:
+        res.append(path + [target])
+    path.append(root)
+    find_path(root.left, target, res, path)
+    find_path(root.right, target, res, path)
+    path.pop()
+</pre>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-11/markdown-find_path-at-binary-tree/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-11/markdown-leetcode-validate-binary-search-tree/">LeetCode | Validate Binary Search Tree in Python</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-11/markdown-leetcode-validate-binary-search-tree/">11/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#leetcode-ref">leetcode</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Python-ref">Python</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+
+
+<pre>
+'''
+Question:
+    Given a binary tree, determine if it is a valid binary search tree (BST). Assume a BST is defined as follows:
+    The left subtree of a node contains only nodes with keys less than the node\'s key.
+    The right subtree of a node contains only nodes with keys greater than the node\'s key.
+    Both the left and right subtrees must also be binary search trees.
+
+Algorithm:
+    set min and max for every subtree
+'''
+
+
+class Solution:
+    # @param root, a tree node
+    # @return a boolean
+    def isValidBST(self, root):
+        return self.isValidBST_rec(root, -(1<<31), 1<<31)
+
+    def isValidBST_rec(self, root, minv, maxv):
+        if not root:
+            return True
+        elif minv < root.val < maxv:
+                return self.isValidBST_rec(root.left, minv, root.val) and self.isValidBST_rec(root.right, root.val, maxv)
+        return False
+</pre>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-11/markdown-leetcode-validate-binary-search-tree/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-11/markdown-leetcode-implement-strstr/">LeetCode | Implement strStr() in Python</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-11/markdown-leetcode-implement-strstr/">11/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#leetcode-ref">leetcode</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Python-ref">Python</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+
+
+<pre>
+'''
+Question:
+    Implement strStr(). Returns a pointer to the first occurrence of needle in haystack, or null if needle is not part of haystack.
+
+Algorithm:
+    1. Horspool algorithm
+    2. Karp-Rabin algorithm
+'''
+
+
+class Solution:
+    # @param haystack, a string
+    # @param needle, a string
+    # @return a string or None
+    def strStr(self, haystack, needle):
+        n, m, ab = len(haystack), len(needle), set(needle)
+        mapper = dict(zip(ab, [m] * len(ab)))
+        for i in xrange(m - 1):
+            mapper[needle[i]] = m - 1 - i
+        i = m - 1
+        while i < n:
+            j, k = m - 1, i
+            while j >= 0:
+                if needle[j] == haystack[k]:
+                    j, k = j - 1, k - 1
+                else:
+                    if i == n - 1: return None
+                    shift = mapper.get(haystack[i], m)
+                    i = min(i + shift, n - 1)
+                    break
+            if j < 0:
+                return needle + haystack[i+1:]
+        return None
+
+
+    def strStr(self, haystack, needle):
+        n, m = len(haystack), len(needle)
+        h_t, h_p = self.hashcode(haystack[:m]), self.hashcode(needle)
+        for i in xrange(n-m+1):
+            if h_t == h_p:
+                if haystack[i:i+m] == needle:
+                    return haystack[i:]
+            else:
+                if i+m < n:
+                    h_t = (31 * (h_t - (31**(m-1)*ord(haystack[i]))) + ord(haystack[i+m])) % ((1<<31) - 1)
+
+    def hashcode(self, s):
+        h = 0
+        for sub in s:
+            h = (31 * h + ord(sub)) % ((1<<31) - 1)
+        return h
+</pre>
+
+
+<p>To learn more about KMP algorithm, watch these two videos.</p>
+
+<ul>
+<li>Principle</li>
+</ul>
+
+
+<iframe width="560" height="315" src="//www.youtube.com/embed/EEjNb9yUv1k" frameborder="0" allowfullscreen></iframe>
+
+
+<ul>
+<li>PreProcessing</li>
+</ul>
+
+
+<iframe width="560" height="315" src="//www.youtube.com/embed/RYUGTzI-f-A" frameborder="0" allowfullscreen></iframe>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-11/markdown-leetcode-implement-strstr/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-11/markdown-java-spiral-matrix/">LeetCode | Spiral Matrix  in Java</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-11/markdown-java-spiral-matrix/">11/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#leetcode-ref">leetcode</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Java-ref">Java</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+
+
+<pre>
+/*
+    1. 行列分别向中间靠拢
+*/
+public class Spiral_Matrix{
+
+    public ArrayList<Integer> spiralOrder(int[][] matrix) {
+        ArrayList<Integer> res = new ArrayList<Integer>();
+        if(matrix.length == 0 || matrix[0].length == 0) return res;
+        int c1 = 0, c2 = matrix[0].length-1, r1 = 0, r2 = matrix.length - 1;
+        while(valid(r1, r2, c1, c2)){
+            for(int i = c1; i <= c2; ++i){
+                res.add(matrix[r1][i]);
+            }
+            if (!valid(++r1, r2, c1, c2)) break;
+            for(int i = r1; i <= r2; ++i){
+                res.add(matrix[i][c2]);
+            }
+            if (!valid(r1, r2, c1, --c2)) break;
+            for(int i = c2; i >= c1; --i){
+                res.add(matrix[r2][i]);
+            }
+            if(!valid(r1, --r2, c1, c2)) break;
+            for(int i = r2; i >= r1; --i){
+                res.add(matrix[i][c1]);
+            }
+            if(!valid(r1, r2, ++c1, c2)) break;
+        }
+        return res;
+    }
+
+    private boolean valid(int r1, int r2, int c1, int c2){
+        return c1 <= c2 && r1 <= r2;
+    }
+}
+</pre>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-11/markdown-java-spiral-matrix/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-11/markdown-java-lru-cache/">LeetCode | LRU Cache in Java</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-11/markdown-java-lru-cache/">11/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#leetcode-ref">leetcode</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Java-ref">Java</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+
+
+<pre>
+/*
+    1. 继承LinkedHashMap，LinkedHashMap实现了按照访问顺序进行排列
+*/
+public class LRUCache extends java.util.LinkedHashMap<Integer, Integer> {
+
+    private int capacity;
+    private int count = 0;
+
+    public LRUCache(int capacity) {
+        super(10, 0.75f, true);
+        this.capacity = capacity;
+    }
+
+    @Override
+    public Integer get(Object key) {
+        if(!super.containsKey(key)){
+            return -1;
+        }else{
+            return super.get(key);
+        }
+    }
+
+    public void set(Integer key, Integer value) {
+        if(!super.containsKey(key)){
+            if(count == capacity){
+                --count;
+                Integer keyDel = super.keySet().iterator().next();
+                super.remove(keyDel);
+            }
+            super.put(key, value);
+            ++count;
+        }else{
+            super.put(key, value);
+        }
+    }
+}
+</pre>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-11/markdown-java-lru-cache/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-10/markdown-java-permutations/">LeetCode | Permutations in Java</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-10/markdown-java-permutations/">10/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#leetcode-ref">leetcode</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Java-ref">Java</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+
+
+<pre>
+/*
+    1. 方法1, in-place交换待排列列表
+    2. 方法2, 使用"visited"和"stk"额外空间
+*/
+public class Permutations {
+
+    public List<List<Integer>> permute(int [] num){
+        List<Integer> numList = new ArrayList<Integer>(num.length);
+        for (int i : num) numList.add(i);
+
+        List<List<Integer>> res = new ArrayList<List<Integer>>();
+        permuteRec(0, numList, res);
+        return res;
+    }
+
+    private void permuteRec(int level, List<Integer> num, List<List<Integer>> res){
+        if (level == num.size()) res.add(new ArrayList<Integer>(num));
+
+        for (int i = level; i < num.size(); ++i){
+            Collections.swap(num, i, level);
+            permuteRec(level + 1, num, res);
+            Collections.swap(num, i, level);
+        }
+    }
+
+
+    public List<ArrayList<Integer>> permute(int[] num) {
+        List<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
+        Deque<Integer> stk = new ArrayDeque<Integer>();
+        boolean[] visited;
+        int len = num.length;
+        visited = new boolean[len];
+        permuteRec(0, num, res, stk, visited);
+        return res;
+    }
+
+    public void permuteRec(int level, int[] num, List<ArrayList<Integer>> res, Deque<Integer> stk, boolean[] visited){
+        if(level == num.length){
+            res.add(new ArrayList<Integer>(stk));
+            return;
+        }
+        for(int i = 0; i < num.length; ++i){
+            if(!visited[i]){
+                stk.addLast(num[i]);
+                visited[i] = true;
+                permuteRec(level + 1, num, res, stk, visited);
+                visited[i] = false;
+                stk.removeLast();
+            }
+        }
+    }
+}
+</pre>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-10/markdown-java-permutations/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-10/markdown-java-n-queens-ii/">LeetCode | N-Queens II in Java</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-10/markdown-java-n-queens-ii/">10/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#leetcode-ref">leetcode</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Java-ref">Java</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+
+
+<pre>
+/*
+    1. 检查列占用情况的所有排列
+*/
+public class N_Queens_II {
+
+    int res = 0;
+
+    public int totalNQueens(int n){
+        List<Integer> perm = new ArrayList<Integer>(n);
+        for (int i = 0; i < n; ++i) perm.add(i);
+        totalNQueensRec(0, perm);
+        return res;
+    }
+
+    private void totalNQueensRec(int level, List<Integer> perm){
+        if (level == perm.size() && isValid(perm)) ++res;
+        for (int i = level; i < perm.size(); ++i){
+            Collections.swap(perm, i, level);
+            totalNQueensRec(level + 1, perm);
+            Collections.swap(perm, i, level);
+        }
+    }
+
+    private boolean isValid(List<Integer> perm){
+        for (int i = 0; i < perm.size(); ++i){
+            for (int j = i + 1; j < perm.size(); ++j){
+                if (i - j == perm.get(i) - perm.get(j) || i - j == perm.get(j) - perm.get(i)) return false;
+            }
+        }
+        return true;
+    }
+}
+</pre>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-10/markdown-java-n-queens-ii/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-10/markdown-add-without-operations/">Add Without Operations</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-10/markdown-add-without-operations/">10/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#algorithm-ref">algorithm</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Other-ref">Other</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+<p>Implement addition of two non-negative numbers without using "+", "-", "*" and "/".</p>
+
+<p>Function "addOneAtI" adds one at the ith digit of binary number "a".</p>
+
+<pre>
+public class AddWithoutOps {
+
+    public int addWithoutOps(int a, int b){
+        for (int i = 0; i < 31; ++i){
+            if (((b >> i) & 1) == 1){
+                a = addOneAtI(a, i);
+            }
+        }
+        return a;
+    }
+
+    public int addOneAtI(int a, int i){
+        if (i >= 31){
+            return a;
+        }
+        if (((a >> i) & 1) == 0) {
+            return a | (1 << i);
+        }else {
+            return addOneAtI((a ^ (1 << i)), i+1);
+        }
+    }
+}
+</pre>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-10/markdown-add-without-operations/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-10/markdown-java-best-time-to-buy-and-sell-stock/">LeetCode | Best Time to Buy and Sell Stock in Java</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-10/markdown-java-best-time-to-buy-and-sell-stock/">10/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#leetcode-ref">leetcode</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Java-ref">Java</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+
+
+<pre>
+/*
+    1. 分治法，记录前后两个部分的最大最小值
+    2. 对于一个位置，记录它前面的最小值
+    3. 转化为最大连续子数组和
+*/
+public class Best_Time_to_Buy_and_Sell_Stock {
+
+    public int maxProfit(int[] prices) {
+        return maxProfitRec(prices, 0, prices.length - 1, new int [] {0 , 0});
+    }
+
+    public int maxProfitRec(int[] prices, int s, int e, int [] maxmin) {
+        if (s >= e) {
+            Arrays.fill(maxmin, prices[s]);
+            return 0;
+        }
+        if (e - s == 1) {
+            int diff = prices[e] - prices[s];
+            maxmin[0] = Math.max(prices[s], prices[e]);
+            maxmin[1] = Math.min(prices[s], prices[e]);
+            return diff >= 0 ? diff : 0;
+        }
+        int mid = (e + s) >>> 1;
+        int diff1 = maxProfitRec(prices, s, mid, maxmin);
+        int max0 = maxmin[0], min0 = maxmin[1];
+        int diff2 = maxProfitRec(prices, mid + 1, e, maxmin);
+        int max1 = maxmin[0], min1 = maxmin[1];
+        int diff = max1 - min0;
+        maxmin[0] = Math.max(max0, max1);
+        maxmin[1] = Math.min(min0, min1);
+        return Math.max(diff, Math.max(diff1, diff2));
+    }
+
+
+    public int maxProfit2(int[] prices) {
+        if(prices == null || prices.length <= 1) return 0;
+        int maxProfit = 0;
+        int curMin = prices[0];
+        for(int i = 0; i < prices.length; ++i){
+            if(prices[i] - curMin > maxProfit){
+                maxProfit = prices[i] - curMin;
+            }
+            if(prices[i] < curMin){
+                curMin = prices[i];
+            }
+        }
+        return maxProfit;
+    }
+
+
+    public int maxProfit3(int [] prices){
+        if(prices == null || prices.length <= 1) return 0;
+        int [] diff = new int [prices.length - 1];
+        for (int i = 0; i < prices.length - 1; ++i){
+            diff[i] = prices[i+1] - prices[i];
+        }
+        int [] DP = new int[diff.length];
+        DP[0] = diff[0] >= 0? diff[0] : 0;
+        for (int i = 1; i < diff.length; ++i){
+              if (DP[i-1] + diff[i] >= 0){
+                  DP[i] = DP[i-1] + diff[i];
+              }else {
+                  DP[i] =diff[i] >= 0? diff[i] : 0;
+              }
+        }
+        int max = 0;
+        for (int i : DP){
+            max = Math.max(i, max);
+        }
+        return max;
+    }
+}
+</pre>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-10/markdown-java-best-time-to-buy-and-sell-stock/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-10/markdown-java-letter-combinations-of-a-phone-number/">LeetCode | Letter Combinations of a Phone Number in Java</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-10/markdown-java-letter-combinations-of-a-phone-number/">10/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#leetcode-ref">leetcode</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Java-ref">Java</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+
+
+<pre>
+/*
+    1. DFS
+*/
+public class Letter_Combinations_of_a_Phone_Number{
+
+    String [] map = new String[]{"0","1","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+
+    public ArrayList<String> letterCombinations(String digits) {
+        return letterCombinationsRec(digits);
+    }
+
+    public ArrayList<String> letterCombinationsRec(String digits) {
+        ArrayList<String> res = new ArrayList<String>();
+        if(digits.isEmpty()) {
+            res.add("");
+            return res;
+        }
+        char c = digits.charAt(0);
+        String metas = map[c-'0'];
+        ArrayList<String> subRes = letterCombinationsRec(digits.substring(1));
+        for(int i = 0 ; i < metas.length(); ++i){
+            for(String sub : subRes){
+                res.add(metas.charAt(i) + sub);
+            }
+        }
+        return res;
+    }
+}
+</pre>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-10/markdown-java-letter-combinations-of-a-phone-number/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-10/markdown-java-convert-sorted-list-to-binary-search-tree/">LeetCode | Convert Sorted List to Binary Search Tree in Java</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-10/markdown-java-convert-sorted-list-to-binary-search-tree/">10/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#leetcode-ref">leetcode</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Java-ref">Java</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+
+
+<pre>
+/*
+    1. 两步法在linkedlist中找中间点
+*/
+public class Convert_Sorted_List_to_Binary_Search_Tree {
+
+    public TreeNode sortedListToBST(ListNode head) {
+        return sortedListToBSTRec(head);
+    }
+
+    public TreeNode sortedListToBSTRec(ListNode head){
+        if(head == null) return null; // length 0 list
+        if(head.next == null) return new TreeNode(head.val); // length 1 list
+        if(head.next.next == null){ // length 2 list
+            TreeNode t =  new TreeNode(head.val);
+            TreeNode t1 =  new TreeNode(head.next.val);
+            t.right = t1;
+            return t;
+        }
+        // length more than 2 list
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        ListNode pp = dummy, p = head;
+        // 2 stepsize trick to find middle node
+        while(p != null && p.next != null){
+            pp = pp.next;
+            p = p.next.next;
+        }
+        ListNode h1 = head;
+        ListNode h2 = pp.next.next;
+        TreeNode t = new TreeNode(pp.next.val);
+        pp.next = null; // Note to set null
+        TreeNode t1 = sortedListToBSTRec(h1);
+        TreeNode t2 = sortedListToBSTRec(h2);
+        t.left = t1;
+        t.right = t2;
+        return t;
+    }
+}
+</pre>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-10/markdown-java-convert-sorted-list-to-binary-search-tree/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-10/markdown-java-candy/">LeetCode | Candy in Java</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-10/markdown-java-candy/">10/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#leetcode-ref">leetcode</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Java-ref">Java</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+
+
+<pre>
+/*
+    1. 正反两面扫描
+    2. candies初始先全部置1
+    3. 正面扫描处理右边rating高的情况
+    4. 反面扫描处理左边rating高的情况
+*/
+public class Candy{
+
+    public int candy(int[] ratings) {
+        if(ratings == null || ratings.length == 0) return 0;
+        if(ratings.length == 1) return 1;
+
+        int L = ratings.length;
+        int [] candies = new int [L];
+        Arrays.fill(candies, 1);
+
+        for(int i = 1; i < L; ++i){
+            if(ratings[i] > ratings[i-1]){
+                candies[i] = candies[i-1] + 1;
+            }
+        }
+
+        for(int i = L - 1; i >= 1; --i){
+            if(ratings[i-1] > ratings[i] && candies[i-1] <= candies[i]){
+                candies[i-1] = candies[i] + 1;
+            }
+        }
+
+        int res = 0;
+        for(int i = 0; i < L; ++i) res += candies[i];
+        return res;
+    }
+}
+</pre>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-10/markdown-java-candy/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-10/markdown-leetcode-restore-ip-addresses/">LeetCode | Restore IP Addresses in Python</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-10/markdown-leetcode-restore-ip-addresses/">10/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#leetcode-ref">leetcode</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Python-ref">Python</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+
+
+<pre>
+'''
+Question:
+    Given a string containing only digits, restore it by returning all possible valid IP address combinations.
+
+Algorithm:
+    DFS
+
+Note:
+    not leading zeros for non-zero numbers
+'''
+
+
+class Solution:
+    # @param s, a string
+    # @return a list of strings
+    def restoreIpAddresses(self, s):
+        res = []
+        self.restoreIpAddresses_rec(0, s, res, [])
+        return res
+
+    def restoreIpAddresses_rec(self, level, s, res, stk):
+        if level == 4 and s == '':
+            res.append('.'.join(stk))
+            return
+        if level >= 5 or s == '':
+            return
+        for i in xrange(min(3, len(s))):
+            pre = s[:i+1]
+            if pre == '0'or (not pre.startswith('0') and 1 <= int(pre) <= 255):
+                stk.append(pre)
+                self.restoreIpAddresses_rec(level + 1, s[i+1:], res, stk)
+                stk.pop()
+</pre>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-10/markdown-leetcode-restore-ip-addresses/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-10/markdown-java-combinations/">LeetCode | Combinations in Java</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-10/markdown-java-combinations/">10/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#leetcode-ref">leetcode</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Java-ref">Java</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+
+
+<pre>
+/*
+    DFS
+*/
+public class Combinations {
+
+    public ArrayList<ArrayList<Integer>> combine(int n, int k) {
+        ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
+        combineRec(res, new ArrayDeque<Integer>(), k, n, 1);
+        return res;
+    }
+
+    public void combineRec(ArrayList<ArrayList<Integer>> res, Deque<Integer> tmp, int left, int n, int s) {
+        if (left == 0) {
+            res.add(new ArrayList<Integer>(tmp));
+        }
+        for(int i = s; i <= n; ++i){
+            tmp.addLast(i);
+            combineRec(res, tmp, left-1, n, i+1);
+            tmp.removeLast();
+        }
+    }
+}
+</pre>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-10/markdown-java-combinations/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-10/markdown-hashmap-structure/">HashMap Structure</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-10/markdown-hashmap-structure/">10/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#language-ref">language</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Java-ref">Java</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+<p>There are three variables that are relevant to the structure and even the performance of Java.util.HashMap(short as HashMap). Its implementation is based on a bucket table and linkedlists.</p>
+
+<ol>
+<li>size, # of key-value pairs hold at a particular moment</li>
+<li>threshold, the next size value at which to resize</li>
+<li>capacity, length of the bucket table</li>
+</ol>
+
+
+<p>where $\frac{size}{capacity}$ is denoted as load factor, which is a tradeoff between time and space complexity.</p>
+
+<p>Declaration:</p>
+
+<pre>
+transient Entry[] table;
+
+transient int size;
+
+int threshold;
+
+final float loadFactor;
+
+int capacity() { return table.length; }
+</pre>
+
+
+<p>The following code segment shows how "threshold" works.</p>
+
+<pre>
+void addEntry(int hash, K key, V value, int bucketIndex) {
+    Entry<K,V> e = table[bucketIndex];
+    table[bucketIndex] = new Entry<K,V>(hash, key, value, e);
+    if (size++ >= threshold)
+       resize(2 * table.length);
+}
+</pre>
+
+
+<p>After # of key-value pairs reaches threshold, the size of the bucket table is doubled.</p>
+
+<p>This shows how "resize" function works.</p>
+
+<pre>
+void resize(int newCapacity) {
+    Entry[] oldTable = table;
+    int oldCapacity = oldTable.length;
+    if (oldCapacity == MAXIMUM_CAPACITY) {
+        threshold = Integer.MAX_VALUE;
+        return;
+    }
+
+    Entry[] newTable = new Entry[newCapacity];
+    transfer(newTable);
+    table = newTable;
+    threshold = (int)(newCapacity * loadFactor);
+}
+</pre>
+
+
+<p>It instantiates a new bucket table with new capacity and assign all entries to the new table. Finally it sets new threshold for feature use.</p>
+
+<p>This is how to assign all entries to a new table.</p>
+
+<pre>
+void transfer(Entry[] newTable) {
+    Entry[] src = table;
+    int newCapacity = newTable.length;
+    for (int j = 0; j < src.length; j++) {
+        Entry<K,V> e = src[j];
+        if (e != null) {
+            src[j] = null;
+            do {
+                Entry<K,V> next = e.next;
+                int i = indexFor(e.hash, newCapacity);
+                e.next = newTable[i];
+                newTable[i] = e;
+                e = next;
+            } while (e != null);
+        }
+    }
+}
+</pre>
+
+
+<p>Note that</p>
+
+<ul>
+<li><p>load factor $\alpha$ actually represents the average length of linkedlists whose heads are hold at buckets. Thus the average retrieval time for a key is O(1 + $\alpha$), where 1 for the computation of hash function and $\alpha$ for searching on a linkedlist.</p></li>
+<li><p>capacity is always power of two so that mod operation can be replaced by "&amp;" operation which is more efficient.</p></li>
+</ul>
+
+
+<pre>
+static int indexFor(int h, int length) {
+    return h & (length-1);
+}
+</pre>
+
+
+<ul>
+<li>If capacity is power of two, the probability of collision will be increased. hash function is applied
+to avoid this.</li>
+</ul>
+
+
+<pre>
+static int hash(int h) {
+    // This function ensures that hashCodes that differ only by
+    // constant multiples at each bit position have a bounded
+    // number of collisions (approximately 8 at default load factor).
+    h ^= (h >>> 20) ^ (h >>> 12);
+    return h ^ (h >>> 7) ^ (h >>> 4);
+}
+</pre>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-10/markdown-hashmap-structure/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-10/markdown-leetcode-3sum-closest/">LeetCode | 3Sum Closest in Python</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-10/markdown-leetcode-3sum-closest/">10/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#leetcode-ref">leetcode</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Python-ref">Python</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+
+
+<pre>
+'''
+Question:
+    Given an array S of n integers, find three integers in S such that the sum is closest to a given number, target. Return the sum of the three integers. You may assume that each input would have exactly one solution.
+
+Algorithm:
+    fix one and approach from two sides to the middle
+'''
+
+
+class Solution:
+    # @return an integer
+    def threeSumClosest(self, num, target):
+        num = sorted(num)
+        res, min_diff = 0, 1 << 31
+        for i in xrange(len(num)):
+            j, k = i + 1, len(num) - 1
+            while j < k:
+                diff = target - (num[i] + num[j] + num[k])
+                if abs(diff) < min_diff:
+                    res, min_diff = num[i] + num[j] + num[k], abs(diff)
+                if diff > 0:
+                    j += 1
+                elif diff < 0:
+                    k -= 1
+                else:
+                    return num[i] + num[j] + num[k]
+        return res
+</pre>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-10/markdown-leetcode-3sum-closest/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-10/markdown-java-same-tree/">LeetCode | Same Tree in Java</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-10/markdown-java-same-tree/">10/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#leetcode-ref">leetcode</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Java-ref">Java</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+
+
+<pre>
+/*
+    1. DFS 递归解法
+    2. BFS 迭代解法
+*/
+public class Same_Tree{
+
+    public boolean isSameTree(TreeNode p, TreeNode q) {
+        return isSameTreeItr(p, q);
+    }
+
+    public boolean isSameTreeRec(TreeNode p, TreeNode q){
+        if(p == null && q == null) return true;
+        if(p == null || q == null) return false;
+        if(p.val == q.val) return isSameTreeRec(p.left, q.left) && isSameTree(p.right, q.right);
+        else return false;
+    }
+
+    public boolean isSameTreeItr(TreeNode p, TreeNode q){
+        ArrayDeque<TreeNode> queue1 = new ArrayDeque<TreeNode>();
+        ArrayDeque<TreeNode> queue2 = new ArrayDeque<TreeNode>();
+        queue1.addLast(p);
+        queue2.addLast(q);
+
+        while(!queue1.isEmpty() && !queue2.isEmpty()){
+            TreeNode n1 = queue1.removeFirst();
+            TreeNode n2 = queue2.removeFirst();
+
+            if(n1 == null && n2 == null) continue;
+            if(n1 == null || n2 == null) return false;
+            if(n1.val != n2.val) return false;
+
+            queue1.addLast(n1.left);
+            queue1.addLast(n1.right);
+            queue2.addLast(n2.left);
+            queue2.addLast(n2.right);
+        }
+        return queue1.isEmpty() && queue2.isEmpty();
+    }
+}
+</pre>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-10/markdown-java-same-tree/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-10/markdown-max-heap-java-python/">Max(Priority) Heap in Java and Python</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-10/markdown-max-heap-java-python/">10/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#algorithm-ref">algorithm</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Java-ref">Java</a>
+            
+            <a href="/tags.html#Python-ref">Python</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+<h2>Java</h2>
+
+<pre>
+public class MaxHeap< T extends Comparable< T >> {
+
+    private List< T > list;
+    private int len;
+    private List< T > unmodifiedList;
+
+    public MaxHeap(){
+        list = new ArrayList< T >();
+        len = list.size();
+    }
+
+    public MaxHeap(Collection< ? extends T > collection){
+        list = new ArrayList<T>(collection);
+        len = list.size();
+        for (int i = len >> 1; i >= 0 ; --i){
+            heapify(i);
+        }
+    }
+
+    public void insert(T t){
+        list.add(t);
+        len += 1;
+        int i = len - 1;
+        while (i != 0){
+            int parent = (i - 1) >>> 1;
+            if (list.get(i).compareTo(list.get(parent)) > 0){
+                Collections.swap(list, i, parent);
+                i = parent;
+            }
+        }
+    }
+
+    public T pop(){
+        T res = list.get(0);
+        Collections.swap(list, 0, len - 1);
+        len -= 1;
+        heapify(0);
+        return res;
+    }
+
+    private void heapify(int i ){
+        int largeIdx = i;
+        int left = (i << 1) + 1, right = (1 << 1) + 2;
+        if (left < len){
+            if (list.get(left).compareTo(list.get(largeIdx)) > 0){
+                largeIdx = left;
+            }
+        }
+        if (right < len){
+            if (list.get(right).compareTo(list.get(largeIdx)) > 0){
+                largeIdx = right;
+            }
+        }
+        if (largeIdx != i){
+            Collections.swap(list, largeIdx, i);
+            heapify(i);
+        }
+    }
+
+    public List< T > showList(){
+        return unmodifiedList == null ? Collections.unmodifiableList(list) : unmodifiedList;
+    }
+}
+</pre>
+
+
+<h2>Python</h2>
+
+<pre>
+class MaxHeap():
+    def __init__(self):
+        self.arr = []
+        self.len = 0
+
+    def insert(self, val):
+        self.arr.append(val)
+        self.len += 1
+        i = self.len - 1
+        while i != 0:
+            if self.arr[i] > self.arr[(i-1) >> 1]:
+                self.arr[i], self.arr[(i-1) >> 2] = self.arr[(i-1) >> 2], self.arr[i]
+                i = (i-1) >> 2
+            else:
+                break
+
+    def pop(self):
+        if not self.len:
+            return None
+        res = self.arr[0]
+        self.arr[0] = self.arr[-1]
+        self.len -= 1
+        self.heapify(0)
+        return res
+
+    def heapify(self, i):
+        large_idx = i
+        if (i << 1) + 1 < self.len:  # has left child
+            large_idx = i if self.arr[i] >= self.arr[(i << 1) + 1] else (i << 1) + 1
+        if (i << 1) + 2 < self.len + 1:  # has right child
+            large_idx = large_idx if self.arr[large_idx] >= self.arr[(i << 1) + 2] else (i << 1) + 2
+        if large_idx and large_idx != i:
+            self.arr[i], self.arr[large_idx] = self.arr[large_idx], self.arr[i]
+            self.heapify(large_idx)
+
+    @staticmethod
+    def build_from_array(arr):
+        mp = MaxHeap()
+        mp.arr = arr[:]
+        mp.len = len(mp.arr)
+        for i in xrange(mp.len >> 1, -1, -1):
+            mp.heapify(i)
+        return mp
+</pre>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-10/markdown-max-heap-java-python/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-10/markdown-leetcode-largest-rectangle-in-histogram/">LeetCode | Largest Rectangle in Histogram in Python</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-10/markdown-leetcode-largest-rectangle-in-histogram/">10/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#leetcode-ref">leetcode</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Python-ref">Python</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+
+
+<pre>
+'''
+Question:
+    Given n non-negative integers representing the histogram\'s bar height where the width of each bar is 1, find the area of largest rectangle in the histogram.
+
+Algorithm:
+    1. For every possible rectangle we can get, we define the supporter of it as the lowest bar(with the smallest value).
+    2. For every bar, we extend the rectangle as much as possbile that is supported by the bar.
+    3. Using stack we are able to reduce the time to compute such a rectangle to O(1)
+    4. For n bars entirely, we can solve the problem in O(n) time.
+'''
+
+
+class Solution:
+    # @param height, a list of integer
+    # @return an integer
+    def largestRectangleArea(self, height):
+        height = [0] + height + [0]
+        res, stk = 0, [0]
+        for i in xrange(1, len(height)):
+            if height[i] >= height[stk[-1]]:
+                stk.append(i)
+            else:
+                while height[i] < height[stk[-1]]:
+                    idx = stk.pop()
+                    res = max(res, (i - stk[-1] - 1) * height[idx])
+                stk.append(i)
+        return res
+</pre>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-10/markdown-leetcode-largest-rectangle-in-histogram/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="post-heading">
+        <a href="/2014-10/markdown-java-symmetric-tree/">LeetCode | Symmetric Tree in Java</a>
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/2014-10/markdown-java-symmetric-tree/">10/2014</a>
+        </span> -->
+        <!-- <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#leetcode-ref">leetcode</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Java-ref">Java</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+
+
+<pre>
+/*
+    1. BFS 迭代解法
+    2. DFS 递归解法
+*/
+public class Symmetric_Tree {
+
+    public boolean isSymmetric(TreeNode root) {
+//        if(root == null) return true;
+//          return isSymmetricRec(root.left, root.right);
+        return isSymmetricItr(root);
+    }
+
+    public boolean isSymmetricItr(TreeNode root){
+        ArrayDeque<TreeNode> queue1 = new ArrayDeque<TreeNode>();
+        ArrayDeque<TreeNode> queue2 = new ArrayDeque<TreeNode>();
+        queue1.offerLast(root);
+        queue2.offerLast(root);
+
+        while(!queue1.isEmpty() && !queue2.isEmpty()){
+            TreeNode n1 = queue1.pollFirst();
+            TreeNode n2 = queue2.pollFirst();
+
+            if(n1 == null && n2 == null) continue;
+            if(n1 == null || n2 == null) return false;
+            if(n1.val != n2.val) return false;
+
+            queue1.offerLast(n1.left);
+            queue1.offerLast(n1.right);
+
+            queue2.offerLast(n2.right);
+            queue2.offerLast(n2.left);
+        }
+        return queue1.isEmpty() && queue2.isEmpty();
+    }
+
+    public boolean isSymmetricRec(TreeNode t1, TreeNode t2){
+        if((t1 == null && t2 != null) || (t1 != null && t2 == null))
+            return false;
+        if(t1 == t2) return true;
+        if(t1.val != t2.val) return false;
+        TreeNode tmp1 = t1.left;
+        TreeNode tmp2 = t2.right;
+        if(!isSymmetricRec(tmp1, tmp2)) return false;
+        tmp1 = t1.right;
+        tmp2 = t2.left;
+        return isSymmetricRec(tmp1, tmp2);
+    }
+}
+</pre>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="read-more">
+            <a href="/2014-10/markdown-java-symmetric-tree/">more &rarr;</a>
+        </div>
+    </div>
+</div>
+
+
+<div class="page-pagination">
+    <ul class="pagination">
+        <li><span>Navi:</span></li>
+    
+    
+    
+            
+    
+    
+        <li><a href="/">newest</a></li>
+    
+    
+    
+    
+        
+        <li><a href="/" class="active">1</a></li>
+        
+    
+    
+    
+    
+        <li><a href="/page2">2</a></li>
+    
+    
+    
+    
+    
+        <li><a href="/page3">3</a></li>
+    
+    
+    
+    
+    
+        <li><a href="/page4">4</a></li>
+    
+    
+    
+    
+    
+        <li><a href="/page5">5</a></li>
+    
+    
+    
+    
+    
+        <li><a href="/page6">6</a></li>
+    
+    
+    
+    
+        <li><a class="disabled">...</a></li>
+    
+    
+        <li><a class="next" href="/page2">&rarr;</a></li>
+    
+    <!--  -->
+        <!-- <li><a href="/">oldest</a></li> -->
+    <!--  -->
+    <li><a href="/page8">oldest</a></li>
+    <li><span>149</span></li>
+    </ul>
+</div>
+
+     </div>
+     <div class="page-footer">
+         <span>
+             Powered by <a href="https://github.com/mojombo/jekyll">Jekyll</a>
+             | Hosted by <a href="http://github.com">Github.com</a>
+             | <span class="page-generator-time">11/02/2014 </span>
+         </span>
+     </div>
+     </div>
+     <script src="/static/js/bootstrap.js" type="text/javascript"></script>
+     <script src="/static/google-code-prettify/prettify.js" type="text/javascript"></script>
+     <script type="text/javascript">
+        $(document).ready(function() {
+            $('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto');
+            prettyPrint();
+        });
+     </script>
+     <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-54880616-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</body>
+</html>

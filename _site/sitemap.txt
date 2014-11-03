@@ -1,0 +1,14 @@
+http://heai.info/404.html
+http://heai.info/about.html
+http://heai.info/archive.html
+http://heai.info/categories.html
+http://heai.info/
+http://heai.info/sitemap.txt
+http://heai.info/tags.html
+http://heai.info/page2/
+http://heai.info/page3/
+http://heai.info/page4/
+http://heai.info/page5/
+http://heai.info/page6/
+http://heai.info/page7/
+http://heai.info/page8/
