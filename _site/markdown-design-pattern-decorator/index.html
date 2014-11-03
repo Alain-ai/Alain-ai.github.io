@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Decorator - Java, Python, Machine Learning, LeetCode</title>
+    <meta name="keywords" content="Java, Python, Machine Learning, LeetCode">
+    <meta name="description" content="The personal site of Alain, MLer and programmer. I write about Java, Python, Machine Learning and my code on LeetCode Here.">
+    <meta name="author" content="Alain">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/static/favicon.ico" rel="shortcut icon">
+    <link href="/static/css/bootstrap.css" rel="stylesheet" type="text/css" media="all">
+    <link href="/static/css/font-awesome.css" rel="stylesheet" type="text/css" media="all">
+    <link href="/static/google-code-prettify/prettify.css" rel="stylesheet" type="text/css" media="all">
+    <link href="/static/css/application.css" rel="stylesheet" type="text/css" media="all">
+    <script src="/static/js/jquery.js" type="text/javascript"></script>
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+</head>
+<body>
+     <div class="page-container">
+     <div class="page-heading">
+         <div class="page-brand">
+             <h1><a href="/">Alain</a></h1>
+             <h2><a href="/tags.html">Java Intermediate, Python Beginner, Machine Learning Fan</a></h2>
+
+         </div>
+         <div class="page-navbar">
+             <div class="page-navbar-container">
+                 <ul class="page-nav">
+                     <li><a href="/">Home</a></li>
+                     <!-- <li><a href="/about.html">About</a></li> -->
+                     <li><a href="/categories.html">Categories</a></li>
+                     <li><a href="/tags.html">Tags</a></li>
+                     <li><a href="/archive.html">Archives</a></li>
+                 </ul>
+             </div>
+         </div>
+     </div>
+     <div class="page-article">
+         <div class="page-content">
+    <div class="post-heading">
+        Decorator
+    </div>
+    <div class="post-meta">
+        <!-- <span>
+            date:
+            <a href="/markdown-design-pattern-decorator/">10/2014</a>
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span> -->
+        <span>
+            category:
+            
+            <a href="/categories.html#design_pattern-ref">design_pattern</a>
+            
+        </span>
+        <span><i class="fa fa-ellipsis-v"></i></span>
+        <span>
+            tag:
+            
+            <a href="/tags.html#Java-ref">Java</a>
+            
+        <span>
+    </div>
+    <div class="post-entry">
+        <!-- import js for mathjax -->
+
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+
+
+<p>Let's introduce the requirement for importing decorator design pattern. Say we want to read off from four types of input:</p>
+
+<pre><code>1. InputStream
+2. File
+3. char array
+4. String
+</code></pre>
+
+<p>We have a abstract class Reader to outline some basic methods like read, close and skip.</p>
+
+<pre>
+public abstract class Reader implements Readable, Closeable {
+
+    protected Object lock;
+
+    protected Reader(Object lock) {
+        if (lock == null) {
+            throw new NullPointerException();
+        }
+        this.lock = lock;
+     }
+ }
+</pre>
+
+
+<p>Then we create four classes which extend Reader. They get direct touch with those four types of input. They are :</p>
+
+<pre><code>1. InputSteamReader
+2. FileReader
+3. CharArrayReader
+4. StringReader
+</code></pre>
+
+<p>Additionally, we want other two Readers which provide more efficient methods of reading than those four ground Reader. They are BufferedReader and LineNumberReader. With the combination of the two high level Readers and four low level Readers, we've got 8 classes. They are:</p>
+
+<pre><code>1. BufferedInputSteamReader
+2. BufferedFileReader
+3. ...
+4. ...
+5. LineNumberInputSteamReader
+6. LineNumberFileReader
+7. ...
+8. ...
+</code></pre>
+
+<p>With more input types and more high level Readers, we'll create too many Readers(13), which is called class explosion. So, it's a good place to introduce decorator design pattern.</p>
+
+<p>For example, we have created a low level Reader "InputSteamReader" to read from standard input(InputStream System.in).</p>
+
+<pre>
+public class InputStreamReader extends Reader {
+
+    private final StreamDecoder sd;
+
+    public InputStreamReader(InputStream in) {
+       super(in);
+       try {
+           sd = StreamDecoder.forInputStreamReader(in, this, (String)null); // ## check lock object
+       } catch (UnsupportedEncodingException e) {
+           // The default encoding should always be available
+           throw new Error(e);
+       }
+    }
+}
+</pre>
+
+
+<p>We don't have to create a class like BufferedInputSteamReader, and we just need create a class called BufferedReader which will wrap a Reader(InputSteamReader here) and provide its own ways to read off. Now we say BufferedReader decorates InputSteamReader.</p>
+
+<pre>
+public class BufferedReader extends Reader {
+
+    private Reader in;
+
+    public BufferedReader(Reader in, int sz) {
+       super(in);
+       if (sz <= 0)
+           throw new IllegalArgumentException("Buffer size <= 0");
+       this.in = in;
+       cb = new char[sz];
+       nextChar = nChars = 0;
+    }
+}
+</pre>
+
+
+<p>When BufferedReader visit to input directly, this.in will do the real job. In this way, BufferedReader does not have to care about how to read from input and just need assemble output from this.in and provide highly efficient reading methods.</p>
+
+<p>After applying decorator design pattern, we will get 7 Readers totally.</p>
+
+    </div>
+</div>
+<div class="post-blank post-pager">
+    <ul class="pager">
+        
+        <li class="previous"><a href="/markdown-leetcode-palindrome-partitioning-ii/">&larr; previous post</a></li>
+        
+        
+        <li class="next"><a href="/markdown-design-pattern-singleton/">next post &rarr;</a></li>
+        
+    </ul>
+</div>
+<div class="page-blank">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_shortname = 'heaiinfo';
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>
+        Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+    </noscript>
+</div>
+
+
+     </div>
+     <div class="page-footer">
+         <span>
+             Powered by <a href="https://github.com/mojombo/jekyll">Jekyll</a>
+             | Hosted by <a href="http://github.com">Github.com</a>
+             | <span class="page-generator-time">11/03/2014 </span>
+         </span>
+     </div>
+     </div>
+     <script src="/static/js/bootstrap.js" type="text/javascript"></script>
+     <script src="/static/google-code-prettify/prettify.js" type="text/javascript"></script>
+     <script type="text/javascript">
+        $(document).ready(function() {
+            $('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto');
+            prettyPrint();
+        });
+     </script>
+     <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-54880616-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</body>
+</html>

@@ -1,8 +1,8 @@
 root: /
-permalink: /:year-:month/:title/
+permalink: /:title/
 markdown: rdiscount
 pygments: true
-safe: true
+safe: false
 watch: true
 paginate: 20
 # description: "The personal site of Alain, MLer and programmer. Where I write about Java, Python, Machine Learning and my code on LeetCode."
